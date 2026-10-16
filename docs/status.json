@@ -1,1 +1,22 @@
-{ "products": [] }
+{
+  "products": [
+    {
+      "url": "https://jugapop.com/product/pokemon-tcg-30o-aniversario-caja-de-entrenador-elite-6-anos/",
+      "store": "jugapop.com",
+      "name": "Pokémon TCG 30º Aniversario Caja de Entrenador Élite +6 años",
+      "image": "https://jugapop.com/wp-content/uploads/2026/09/TPBAN010447_1.webp",
+      "price": "79,99 €",
+      "inStock": false,
+      "lastChange": "2026-10-16T15:56:51.918Z"
+    },
+    {
+      "url": "https://www.jjcollection.es/products/pokemon-tcg-elite-trainer-box-30th-celebration-ingles",
+      "store": "jjcollection.es",
+      "name": "Pokémon TCG - Elite Trainer Box 30th Celebration (Inglés & Español)",
+      "image": "https://cdn.shopify.com/s/files/1/0959/4431/1113/files/ETB-1-Photoroom_2.png?v=1786036373",
+      "price": "75,00 €",
+      "inStock": false,
+      "lastChange": "2026-10-16T15:56:51.918Z"
+    }
+  ]
+}
