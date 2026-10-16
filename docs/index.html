@@ -1,0 +1,82 @@
+<!doctype html>
+<html lang="es">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+  <title>Stock Alerta</title>
+  <link rel="manifest" href="manifest.webmanifest">
+  <link rel="apple-touch-icon" href="icons/icon-180.png">
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+  <meta name="apple-mobile-web-app-title" content="Stock Alerta">
+  <meta name="theme-color" content="#14112b">
+  <style>
+    :root {
+      --bg: #14112b; --card: #221d45; --text: #f4f2ff; --muted: #a9a3d1;
+      --ok: #2ecc71; --ko: #ff5c6c; --accent: #ffcb05; --line: #3a3366;
+    }
+    * { box-sizing: border-box; }
+    body {
+      margin: 0; background: var(--bg); color: var(--text);
+      font: 16px/1.45 -apple-system, BlinkMacSystemFont, "SF Pro Text", system-ui, sans-serif;
+      padding: max(20px, env(safe-area-inset-top)) 16px max(24px, env(safe-area-inset-bottom));
+    }
+    main { max-width: 480px; margin: 0 auto; display: grid; gap: 16px; }
+    h1 { font-size: 22px; margin: 4px 0 0; }
+    .card { background: var(--card); border: 1px solid var(--line); border-radius: 18px; padding: 16px; }
+    .product { display: flex; color: inherit; text-decoration: none; gap: 14px; align-items: center; }
+    .product img { width: 84px; height: 84px; object-fit: contain; border-radius: 12px; background: #fff; flex: none; }
+    .product h2 { font-size: 16px; margin: 0 0 4px; }
+    .muted { color: var(--muted); font-size: 14px; }
+    .status { font-size: 18px; margin-top: 4px; font-weight: 700; display: flex; align-items: center; gap: 10px; }
+    .dot { width: 14px; height: 14px; border-radius: 50%; background: var(--muted); }
+    .in .dot { background: var(--ok); box-shadow: 0 0 12px var(--ok); }
+    .out .dot { background: var(--ko); }
+    .in { color: var(--ok); } .out { color: var(--ko); }
+    button, .btn {
+      display: block; width: 100%; padding: 14px; border: 0; border-radius: 14px; text-align: center;
+      font: inherit; font-weight: 600; background: var(--accent); color: #1b1640; text-decoration: none; cursor: pointer;
+    }
+    .btn.secondary, button.secondary { background: transparent; color: var(--text); border: 1px solid var(--line); }
+    button:disabled { opacity: .6; }
+    textarea {
+      width: 100%; min-height: 120px; margin: 10px 0; padding: 10px; border-radius: 10px;
+      background: #0f0c22; color: var(--text); border: 1px solid var(--line); font: 12px ui-monospace, monospace;
+    }
+    ol { padding-left: 20px; margin: 8px 0 0; } li { margin: 4px 0; }
+    [hidden] { display: none !important; }
+  </style>
+</head>
+<body>
+<main>
+  <h1>🔔 Stock Alerta</h1>
+
+  <div id="list" style="display:grid;gap:12px"><p class="muted">Cargando…</p></div>
+  <div class="muted" id="lastCheck"></div>
+
+  <section class="card" id="install" hidden>
+    <strong>Instálala en tu iPhone</strong>
+    <p class="muted">Para recibir avisos en iOS la app tiene que estar en la pantalla de inicio:</p>
+    <ol class="muted">
+      <li>Abre esta página en <b>Safari</b>.</li>
+      <li>Pulsa <b>Compartir</b> (el cuadrado con la flecha).</li>
+      <li>Elige <b>Añadir a pantalla de inicio</b>.</li>
+      <li>Abre la app desde el icono nuevo y vuelve aquí.</li>
+    </ol>
+  </section>
+
+  <section class="card" id="push">
+    <strong>Notificaciones</strong>
+    <p class="muted" id="pushInfo">Activa los avisos para enterarte en cuanto haya stock.</p>
+    <button id="enable">Activar notificaciones</button>
+    <div id="subBox" hidden>
+      <p class="muted">Último paso: copia este código y pégalo en GitHub como secreto <b>PUSH_SUBSCRIPTIONS</b> (ver README).</p>
+      <textarea id="sub" readonly></textarea>
+      <button class="secondary" id="copy">Copiar código</button>
+    </div>
+  </section>
+</main>
+<script src="config.js"></script>
+<script src="app.js"></script>
+</body>
+</html>
