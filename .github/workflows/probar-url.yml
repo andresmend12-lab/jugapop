@@ -1,0 +1,21 @@
+name: Probar una página
+
+on:
+  workflow_dispatch:
+    inputs:
+      url:
+        description: 'URL del producto'
+        required: true
+
+jobs:
+  probe:
+    runs-on: ubuntu-latest
+    timeout-minutes: 3
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+      - run: node probe.mjs "$URL"
+        env:
+          URL: ${{ inputs.url }}
