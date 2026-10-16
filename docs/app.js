@@ -11,18 +11,15 @@ async function loadStatus() {
     $('list').innerHTML = products.length ? products.map((p) => {
       const cls = p.inStock === true ? 'in' : p.inStock === false ? 'out' : '';
       const label = p.inStock === true ? '¡Hay stock!' : p.inStock === false ? 'Agotado' : 'Aún sin comprobar';
-      return `<section class="card">
-        <a class="product" href="${esc(p.url)}" target="_blank" rel="noopener">
-          ${p.imageLocal || p.image ? `<img src="${esc(p.imageLocal || p.image)}" alt="" data-fallback="${esc(p.image || '')}">` : ''}
-          <div>
-            <h2>${esc(p.name || p.url)}</h2>
-            <div class="muted">${esc(p.store || '')}${p.price ? ` · ${esc(p.price)}` : ''}</div>
-            <div class="status ${cls}"><span class="dot"></span><span>${label}</span></div>
-            ${p.lastChange ? `<div class="muted">Desde: ${fmt(p.lastChange)}</div>` : ''}
-          </div>
-          <span class="btn ${p.inStock ? '' : 'secondary'}">${p.inStock ? '¡Comprar ahora!' : 'Ver en la tienda'} ↗</span>
-        </a>
-      </section>`;
+      return `<a class="product" href="${esc(p.url)}" target="_blank" rel="noopener">
+        ${p.imageLocal || p.image ? `<img src="${esc(p.imageLocal || p.image)}" alt="" data-fallback="${esc(p.image || '')}">` : ''}
+        <div class="info">
+          <h2>${esc(p.name || p.url)}</h2>
+          <div class="muted">${esc(p.store || '')}${p.price ? ` · ${esc(p.price)}` : ''}</div>
+          <div class="status ${cls}"><span class="dot"></span><span>${label}</span></div>
+        </div>
+        <span class="chev">›</span>
+      </a>`;
     }).join('') : '<p class="muted">Aún no hay datos: espera a la primera comprobación.</p>';
     // Si la copia local aún no existe, probamos con la foto original de la tienda.
     $('list').querySelectorAll('img[data-fallback]').forEach((img) => {
@@ -34,11 +31,13 @@ async function loadStatus() {
     $('list').innerHTML = '<p class="muted">No se pudo cargar el estado.</p>';
   }
 
-  // Hora de la última comprobación (solo funciona si el repositorio es público).
+  // Estado de las comprobaciones (solo funciona si el repositorio es público).
   try {
-    const r = await fetch(`https://api.github.com/repos/${cfg.repo}/actions/workflows/${cfg.workflow}/runs?per_page=1`);
-    const run = (await r.json()).workflow_runs?.[0];
-    if (run) $('lastCheck').textContent = `Última comprobación: ${fmt(run.updated_at)}`;
+    const r = await fetch(`https://api.github.com/repos/${cfg.repo}/actions/workflows/${cfg.workflow}/runs?per_page=5`);
+    const runs = (await r.json()).workflow_runs || [];
+    const active = runs.find((run) => run.status === 'in_progress');
+    if (active) $('lastCheck').textContent = '🟢 Comprobando cada minuto';
+    else if (runs[0]) $('lastCheck').textContent = `Última comprobación: ${fmt(runs[0].updated_at)}`;
   } catch { /* opcional */ }
 }
 
@@ -52,7 +51,6 @@ function showSubscription(sub) {
   $('sub').value = JSON.stringify(sub);
   $('subBox').hidden = false;
   $('enable').textContent = 'Notificaciones activadas ✓';
-  $('pushSummary').textContent = '🔔 Notificaciones activadas ✓';
   $('enable').disabled = true;
 }
 
@@ -100,6 +98,8 @@ async function setupPush() {
     $('copy').textContent = 'Copiado ✓';
   };
 }
+
+$('settingsBtn').onclick = () => { $('push').hidden = !$('push').hidden; };
 
 if ('serviceWorker' in navigator) navigator.serviceWorker.register('sw.js');
 loadStatus();

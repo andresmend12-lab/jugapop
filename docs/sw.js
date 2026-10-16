@@ -1,4 +1,4 @@
-const CACHE = 'jugapop-v3';
+const CACHE = 'jugapop-v4';
 const SHELL = ['./', 'index.html', 'app.js', 'config.js', 'manifest.webmanifest', 'icons/icon-192.png'];
 
 self.addEventListener('install', (e) => {

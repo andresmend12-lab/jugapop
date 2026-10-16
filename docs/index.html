@@ -24,13 +24,19 @@
     main { max-width: 480px; margin: 0 auto; display: grid; grid-template-columns: minmax(0, 1fr); gap: 16px; }
     h1 { font-size: 22px; margin: 4px 0 0; }
     .card { background: var(--card); border: 1px solid var(--line); border-radius: 18px; padding: 16px; }
-    .product { display: grid; grid-template-columns: minmax(0, 1fr); color: inherit; text-decoration: none; gap: 12px; }
-    #list > .card { min-width: 0; }
-    .product img { width: 100%; height: 240px; object-fit: contain; border-radius: 12px; background: #fff; padding: 8px; }
-    .product h2 { font-size: 16px; margin: 0 0 4px; }
+    #list { display: grid; grid-template-columns: minmax(0, 1fr); gap: 8px; }
+    .product {
+      display: flex; align-items: center; gap: 12px; min-width: 0; padding: 10px 12px;
+      color: inherit; text-decoration: none; background: var(--card); border: 1px solid var(--line); border-radius: 14px;
+    }
+    .product img { width: 56px; height: 56px; object-fit: contain; border-radius: 10px; background: #fff; padding: 3px; flex: none; }
+    .product .info { min-width: 0; flex: 1; }
+    .product h2 { font-size: 14px; margin: 0; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+    .product .muted { font-size: 12px; }
+    .product .chev { color: var(--muted); font-size: 22px; flex: none; }
     .muted { color: var(--muted); font-size: 14px; }
-    .status { font-size: 18px; margin-top: 4px; font-weight: 700; display: flex; align-items: center; gap: 10px; }
-    .dot { width: 14px; height: 14px; border-radius: 50%; background: var(--muted); }
+    .status { font-size: 14px; font-weight: 700; display: flex; align-items: center; gap: 6px; }
+    .dot { width: 9px; height: 9px; border-radius: 50%; background: var(--muted); }
     .in .dot { background: var(--ok); box-shadow: 0 0 12px var(--ok); }
     .out .dot { background: var(--ko); }
     .in { color: var(--ok); } .out { color: var(--ko); }
@@ -45,20 +51,22 @@
       background: #0f0c22; color: var(--text); border: 1px solid var(--line); font: 12px ui-monospace, monospace;
     }
     ol { padding-left: 20px; margin: 8px 0 0; } li { margin: 4px 0; }
-    details > summary {
-      list-style: none; cursor: pointer; text-align: center; color: var(--muted);
-      font-size: 13px; padding: 6px;
+    header { display: flex; align-items: center; justify-content: space-between; }
+    #settingsBtn {
+      width: auto; padding: 6px 10px; background: transparent; color: var(--muted);
+      font-size: 20px; border-radius: 10px;
     }
-    details > summary::-webkit-details-marker { display: none; }
-    details[open] > summary { margin-bottom: 8px; }
     [hidden] { display: none !important; }
   </style>
 </head>
 <body>
 <main>
-  <h1>🔔 Stock Alerta</h1>
+  <header>
+    <h1>🔔 Stock Alerta</h1>
+    <button id="settingsBtn" aria-label="Notificaciones">⚙︎</button>
+  </header>
 
-  <div id="list" style="display:grid;grid-template-columns:minmax(0,1fr);gap:12px"><p class="muted">Cargando…</p></div>
+  <div id="list"><p class="muted">Cargando…</p></div>
   <div class="muted" id="lastCheck"></div>
 
   <section class="card" id="install" hidden>
@@ -72,8 +80,7 @@
     </ol>
   </section>
 
-  <details id="push">
-    <summary id="pushSummary">🔔 Notificaciones</summary>
+  <section id="push" hidden>
     <div class="card">
     <p class="muted" id="pushInfo">Activa los avisos para enterarte en cuanto haya stock.</p>
     <button id="enable">Activar notificaciones</button>
@@ -83,7 +90,7 @@
       <button class="secondary" id="copy">Copiar código</button>
     </div>
     </div>
-  </details>
+  </section>
 </main>
 <script src="config.js"></script>
 <script src="app.js"></script>

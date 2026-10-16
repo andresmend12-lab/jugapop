@@ -2,7 +2,10 @@ name: Comprobar stock
 
 on:
   schedule:
-    - cron: '*/10 * * * *'   # cada 10 min (GitHub puede retrasarlo unos minutos)
+    # GitHub no permite programar más a menudo que cada 5 min, así que cada
+    # ejecución se queda ~55 min comprobando una vez por minuto. Mientras una
+    # está en marcha, la siguiente espera en cola y arranca al terminar.
+    - cron: '*/5 * * * *'
   workflow_dispatch:
     inputs:
       test:
@@ -14,13 +17,14 @@ permissions:
   contents: write
 
 concurrency:
-  group: check-stock
+  # Las pruebas van aparte para no esperar a que termine la ronda en marcha.
+  group: check-stock-${{ inputs.test == true && 'test' || 'loop' }}
   cancel-in-progress: false
 
 jobs:
   check:
     runs-on: ubuntu-latest
-    timeout-minutes: 5
+    timeout-minutes: 65
     steps:
       - uses: actions/checkout@v4
       - uses: actions/setup-node@v4
@@ -28,8 +32,7 @@ jobs:
           node-version: 22
           cache: npm
       - run: npm ci
-      - name: Comprobar producto
-        run: node check.mjs
+      - name: Comprobar cada minuto
         env:
           VAPID_PUBLIC_KEY: BHQ23UcdZ-yCvAArJDx-QmXQ7qdwv2N-3phvqa2hIYIuzDPTbR_J9yqngFHI8NzcPHax0ow8qFffvrCG9Md_6ls
           VAPID_PRIVATE_KEY: ${{ secrets.VAPID_PRIVATE_KEY }}
@@ -37,12 +40,18 @@ jobs:
           PUSH_SUBSCRIPTIONS: ${{ secrets.PUSH_SUBSCRIPTIONS }}
           NTFY_TOPIC: ${{ secrets.NTFY_TOPIC }}
           TEST_NOTIFICATION: ${{ inputs.test == true }}
-      - name: Guardar estado
+          LOOP_MINUTES: 55
         run: |
-          git add docs/status.json docs/img
-          if ! git diff --cached --quiet; then
-            git config user.name "github-actions[bot]"
-            git config user.email "41898319+github-actions[bot]@users.noreply.github.com"
-            git commit -m "Estado de stock actualizado"
-            git push
-          fi
+          git config user.name "github-actions[bot]"
+          git config user.email "41898319+github-actions[bot]@users.noreply.github.com"
+          end=$((SECONDS + LOOP_MINUTES * 60))
+          while :; do
+            node check.mjs || true
+            git add docs/status.json docs/img
+            if ! git diff --cached --quiet; then
+              git commit -qm "Estado de stock actualizado"
+              git pull -q --rebase origin main && git push -q || echo "::warning::No se pudo guardar el estado"
+            fi
+            if [ "$TEST_NOTIFICATION" = "true" ] || [ $SECONDS -ge $end ]; then break; fi
+            sleep 60
+          done

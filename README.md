@@ -10,7 +10,7 @@ vuelve a haber stock de:
 
 Un iPhone no deja que una web se quede comprobando cosas en segundo plano, así que el trabajo se reparte en dos partes:
 
-1. **GitHub Actions** (`.github/workflows/check-stock.yml`) mira las tiendas **cada 10 minutos**:
+1. **GitHub Actions** (`.github/workflows/check-stock.yml`) mira las tiendas **cada minuto** (cada ejecución dura ~55 min comprobando una vez por minuto y la siguiente arranca al terminar):
    - Jugapop (WooCommerce): usa la API pública de la tienda y, si falla, lee la página.
    - JJ Collection (Shopify): usa `…/products/<producto>.js`.
    - Guarda el resultado en `docs/status.json`. Cuando un producto pasa de *agotado* a *disponible*, envía una **notificación push** a tu iPhone.
