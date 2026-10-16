@@ -13,16 +13,23 @@ async function loadStatus() {
       const label = p.inStock === true ? '¡Hay stock!' : p.inStock === false ? 'Agotado' : 'Aún sin comprobar';
       return `<section class="card">
         <a class="product" href="${esc(p.url)}" target="_blank" rel="noopener">
-          ${p.image ? `<img src="${esc(p.image)}" alt="">` : ''}
+          ${p.imageLocal || p.image ? `<img src="${esc(p.imageLocal || p.image)}" alt="" data-fallback="${esc(p.image || '')}">` : ''}
           <div>
             <h2>${esc(p.name || p.url)}</h2>
             <div class="muted">${esc(p.store || '')}${p.price ? ` · ${esc(p.price)}` : ''}</div>
             <div class="status ${cls}"><span class="dot"></span><span>${label}</span></div>
             ${p.lastChange ? `<div class="muted">Desde: ${fmt(p.lastChange)}</div>` : ''}
           </div>
+          <span class="btn ${p.inStock ? '' : 'secondary'}">${p.inStock ? '¡Comprar ahora!' : 'Ver en la tienda'} ↗</span>
         </a>
       </section>`;
     }).join('') : '<p class="muted">Aún no hay datos: espera a la primera comprobación.</p>';
+    // Si la copia local aún no existe, probamos con la foto original de la tienda.
+    $('list').querySelectorAll('img[data-fallback]').forEach((img) => {
+      img.addEventListener('error', () => {
+        if (img.dataset.fallback && img.src !== img.dataset.fallback) img.src = img.dataset.fallback;
+      }, { once: true });
+    });
   } catch {
     $('list').innerHTML = '<p class="muted">No se pudo cargar el estado.</p>';
   }

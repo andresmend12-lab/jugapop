@@ -10,7 +10,8 @@
 //   NTFY_TOPIC               (opcional) tema de ntfy.sh como aviso de respaldo
 //   TEST_NOTIFICATION=true   envía una notificación de prueba y no toca el estado
 
-import { readFile, writeFile } from 'node:fs/promises';
+import { access, mkdir, readFile, writeFile } from 'node:fs/promises';
+import { createHash } from 'node:crypto';
 import webpush from 'web-push';
 
 const STATUS_FILE = new URL('./docs/status.json', import.meta.url);
@@ -115,6 +116,25 @@ async function checkProduct(url) {
   throw new Error(errors.join(' | '));
 }
 
+// Guarda una copia de la foto dentro de docs/img para que la app la muestre
+// aunque la tienda bloquee las imágenes enlazadas desde otras webs.
+async function saveImage(src, prevLocal) {
+  if (!src) return prevLocal || null;
+  const ext = (new URL(src).pathname.match(/\.(jpe?g|png|webp|gif|avif)$/i)?.[1] || 'jpg').toLowerCase();
+  const local = `img/${createHash('sha1').update(src).digest('hex').slice(0, 12)}.${ext}`;
+  const file = new URL(`./docs/${local}`, import.meta.url);
+  try { await access(file); return local; } catch { /* hay que descargarla */ }
+  try {
+    const res = await get(src, 'image/*');
+    await mkdir(new URL('./docs/img/', import.meta.url), { recursive: true });
+    await writeFile(file, Buffer.from(await res.arrayBuffer()));
+    return local;
+  } catch (e) {
+    console.log(`::warning::No se pudo descargar la imagen ${src}: ${e.message}`);
+    return prevLocal || null;
+  }
+}
+
 function parseSubscriptions() {
   const raw = process.env.PUSH_SUBSCRIPTIONS?.trim();
   if (!raw) return [];
@@ -180,6 +200,7 @@ for (const url of PRODUCTS) {
     store,
     name: result.name || prev.name || null,
     image: result.image || prev.image || null,
+    imageLocal: await saveImage(result.image || prev.image, prev.imageLocal),
     price: result.price || prev.price || null,
     inStock: result.inStock,
     lastChange: prev.inStock !== result.inStock ? now : prev.lastChange || now,
