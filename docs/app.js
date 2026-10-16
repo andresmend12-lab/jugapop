@@ -52,6 +52,7 @@ function showSubscription(sub) {
   $('sub').value = JSON.stringify(sub);
   $('subBox').hidden = false;
   $('enable').textContent = 'Notificaciones activadas ✓';
+  $('pushSummary').textContent = '🔔 Notificaciones activadas ✓';
   $('enable').disabled = true;
 }
 

@@ -45,6 +45,12 @@
       background: #0f0c22; color: var(--text); border: 1px solid var(--line); font: 12px ui-monospace, monospace;
     }
     ol { padding-left: 20px; margin: 8px 0 0; } li { margin: 4px 0; }
+    details > summary {
+      list-style: none; cursor: pointer; text-align: center; color: var(--muted);
+      font-size: 13px; padding: 6px;
+    }
+    details > summary::-webkit-details-marker { display: none; }
+    details[open] > summary { margin-bottom: 8px; }
     [hidden] { display: none !important; }
   </style>
 </head>
@@ -66,8 +72,9 @@
     </ol>
   </section>
 
-  <section class="card" id="push">
-    <strong>Notificaciones</strong>
+  <details id="push">
+    <summary id="pushSummary">🔔 Notificaciones</summary>
+    <div class="card">
     <p class="muted" id="pushInfo">Activa los avisos para enterarte en cuanto haya stock.</p>
     <button id="enable">Activar notificaciones</button>
     <div id="subBox" hidden>
@@ -75,7 +82,8 @@
       <textarea id="sub" readonly></textarea>
       <button class="secondary" id="copy">Copiar código</button>
     </div>
-  </section>
+    </div>
+  </details>
 </main>
 <script src="config.js"></script>
 <script src="app.js"></script>
