@@ -53,6 +53,8 @@ Instala la app gratuita **ntfy** en el iPhone, suscríbete a un tema con un nomb
 ## Añadir o quitar productos
 Edita `products.json` (una URL por línea). Sirven tiendas WooCommerce (`/product/…`), Shopify (`/products/…`) y, en general, cualquier página con datos de disponibilidad estándar.
 
+Antes de añadir una tienda nueva puedes probarla en *Actions → Probar una página → Run workflow*. Si responde `HTTP 403` con el título *Just a moment…*, la tienda bloquea las comprobaciones automáticas (le pasa a Carrefour) y no se puede vigilar así.
+
 ## A tener en cuenta
 - GitHub ejecuta las tareas programadas **solo en la rama por defecto** (`main`) y puede retrasarlas unos minutos en horas punta.
 - Si el repositorio pasa **60 días sin actividad**, GitHub pausa las tareas programadas; basta con reactivarlas en la pestaña *Actions*.
