@@ -78,7 +78,7 @@ async function fromHtml(url) {
   if (inStock === null) {
     // Solo miramos el bloque principal del producto (antes de "relacionados").
     const main = html.split(/class="[^"]*related/i)[0];
-    if (/class="[^"]*\bstock\b[^"]*\bout-of-stock\b/i.test(main) || /(Agotado|Sin existencias|Fuera de stock|Sold out)/i.test(main)) inStock = false;
+    if (/class="[^"]*\bstock\b[^"]*\bout-of-stock\b/i.test(main) || /(Agotado|Sin existencias|Fuera de stock|Sold out|Producto no disponible)/i.test(main)) inStock = false;
     else if (/class="[^"]*\bstock\b[^"]*\bin-stock\b/i.test(main) || /name="add-to-cart"|single_add_to_cart_button/i.test(main)) inStock = true;
   }
   if (inStock === null) throw new Error('HTML: no se pudo determinar el stock');
