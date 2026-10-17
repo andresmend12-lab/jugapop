@@ -7,8 +7,15 @@
       "image": "https://jugapop.com/wp-content/uploads/2026/09/TPBAN010447_1.webp",
       "imageLocal": "img/37fe4e1077f0.webp",
       "price": "79,99 €",
+      "priceValue": 79.99,
       "inStock": false,
-      "lastChange": "2026-10-16T15:56:51.918Z"
+      "lastChange": "2026-10-16T15:56:51.918Z",
+      "history": [
+        {
+          "at": "2026-10-16T15:56:51.918Z",
+          "inStock": false
+        }
+      ]
     },
     {
       "url": "https://www.jjcollection.es/products/pokemon-tcg-elite-trainer-box-30th-celebration-ingles",
@@ -17,8 +24,44 @@
       "image": "https://cdn.shopify.com/s/files/1/0959/4431/1113/files/ETB-1-Photoroom_2.png?v=1786036373",
       "imageLocal": "img/cd0836b43b2f.png",
       "price": "75,00 €",
+      "priceValue": 75,
       "inStock": false,
-      "lastChange": "2026-10-16T15:56:51.918Z"
+      "lastChange": "2026-10-16T15:56:51.918Z",
+      "history": [
+        {
+          "at": "2026-10-16T15:56:51.918Z",
+          "inStock": false
+        }
+      ]
+    }
+  ],
+  "searches": [
+    {
+      "key": "https://jugapop.com|30 aniversario",
+      "store": "https://jugapop.com",
+      "query": "30 aniversario",
+      "seen": [
+        "https://jugapop.com/product/pokemon-tcg-30-aniversario-ex-tin-surtida-con-4-sobres-y-carta-promocional-6-anos/"
+      ],
+      "recent": []
+    },
+    {
+      "key": "https://www.jjcollection.es|30th",
+      "store": "https://www.jjcollection.es",
+      "query": "30th",
+      "seen": [
+        "https://www.jjcollection.es/products/pokemon-tcg-first-partners-illustration-collection-series-2-30th-anniversary-ingles-espanol",
+        "https://www.jjcollection.es/products/pokemon-tcg-30th-celebration-deluxe-deck-set-umbreon-chino",
+        "https://www.jjcollection.es/products/pokemon-tcg-30th-celebration-deluxe-deck-set-espeon-chino",
+        "https://www.jjcollection.es/products/pokemon-tcg-30th-celebration-sylveon-ex-card-display-set-chino",
+        "https://www.jjcollection.es/products/pokemon-tcg-elite-trainer-box-pitch-black-ingles-espanol",
+        "https://www.jjcollection.es/products/evoluciones-prismaticas-super-premium-collection-jcc-pokemon",
+        "https://www.jjcollection.es/products/pokemon-tcg-elite-trainer-box-30th-celebration-ingles",
+        "https://www.jjcollection.es/products/pokemon-tcg-30th-celebration-booster-box-chino",
+        "https://www.jjcollection.es/products/pokemon-tcg-30th-celebration-ultra-premium-collection-day-espeon-ex-ingles-espanol",
+        "https://www.jjcollection.es/products/pokemon-tcg-30th-celebration-collection-display-gift-box-espeon-ex-umbreon-ex-chino"
+      ],
+      "recent": []
     }
   ]
 }
