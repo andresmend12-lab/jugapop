@@ -28,6 +28,8 @@ jobs:
     timeout-minutes: 65
     steps:
       - uses: actions/checkout@v4
+        with:
+          ref: main   # la app (GitHub Pages) lee el estado de main
       - uses: actions/setup-node@v4
         with:
           node-version: 22
@@ -53,7 +55,7 @@ jobs:
             git add docs/status.json docs/img
             if ! git diff --cached --quiet; then
               git commit -qm "Estado de stock actualizado"
-              git pull -q --rebase origin main && git push -q || echo "::warning::No se pudo guardar el estado"
+              git pull -q --rebase origin main && git push -q origin HEAD:main || echo "::warning::No se pudo guardar el estado"
             fi
             if [ "$TEST_NOTIFICATION" = "true" ] || [ $SECONDS -ge $end ]; then break; fi
             sleep 60
