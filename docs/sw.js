@@ -1,4 +1,4 @@
-const CACHE = 'jugapop-v5';
+const CACHE = 'jugapop-v6';
 const SHELL = ['./', 'index.html', 'app.js', 'config.js', 'manifest.webmanifest', 'icons/icon-192.png'];
 
 self.addEventListener('install', (e) => {
@@ -11,15 +11,19 @@ self.addEventListener('activate', (e) => {
     .then(() => self.clients.claim()));
 });
 
-// Red primero (para ver siempre el estado más reciente), caché si no hay conexión.
+// Red primero y sin caché HTTP (para ver siempre la última versión y el último estado);
+// la copia guardada solo se usa si no hay conexión.
 self.addEventListener('fetch', (e) => {
   const url = new URL(e.request.url);
   if (e.request.method !== 'GET' || url.origin !== location.origin) return;
-  e.respondWith(fetch(e.request).then((res) => {
-    const copy = res.clone();
-    caches.open(CACHE).then((c) => c.put(e.request, copy));
+  const key = url.origin + url.pathname; // sin ?t=… para no llenar la caché de copias
+  e.respondWith(fetch(url.href, { cache: 'no-store' }).then((res) => {
+    if (res.ok) {
+      const copy = res.clone();
+      caches.open(CACHE).then((c) => c.put(key, copy));
+    }
     return res;
-  }).catch(() => caches.match(e.request, { ignoreSearch: true })));
+  }).catch(() => caches.match(key)));
 });
 
 self.addEventListener('push', (e) => {

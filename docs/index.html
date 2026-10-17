@@ -79,6 +79,7 @@
   <header>
     <h1>🔔 Stock Alerta</h1>
     <div class="icons">
+      <button class="iconBtn" id="refreshBtn" aria-label="Recargar">↻</button>
       <button class="iconBtn" id="historyBtn" aria-label="Historial">🕘</button>
       <button class="iconBtn" id="settingsBtn" aria-label="Ajustes">⚙︎</button>
     </div>
@@ -90,6 +91,7 @@
   <div id="news" class="rows"></div>
 
   <div class="muted small" id="lastCheck"></div>
+  <div class="muted small" id="updated" style="margin-top:-12px;opacity:.7"></div>
 
   <section class="card" id="historyPanel" hidden>
     <strong>Historial de stock</strong>

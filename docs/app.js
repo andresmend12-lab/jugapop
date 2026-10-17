@@ -1,3 +1,4 @@
+const VERSION = 'v6';
 const $ = (id) => document.getElementById(id);
 const cfg = window.APP_CONFIG;
 
@@ -105,6 +106,7 @@ async function loadStatus() {
       $('lastCheck').innerHTML = `⚠️ Las comprobaciones están paradas desde ${fmtShort(last.updated_at)}. Reactívalas en GitHub › Actions.`;
     } else if (last) $('lastCheck').textContent = `Última comprobación: ${fmt(last.updated_at)}`;
   } catch { /* opcional */ }
+  $('updated').textContent = `Datos cargados a las ${new Date().toLocaleTimeString('es-ES', { hour: '2-digit', minute: '2-digit' })} · ${VERSION}`;
 }
 
 // ---------- Notificaciones ----------
@@ -283,8 +285,30 @@ function toggle(panel, btn) {
 $('settingsBtn').onclick = () => toggle('push', 'settingsBtn');
 $('historyBtn').onclick = () => toggle('historyPanel', 'historyBtn');
 
-if ('serviceWorker' in navigator) navigator.serviceWorker.register('sw.js');
+// Mantener la app al día: buscar versión nueva al abrirla y recargar cuando se instale.
+let swReg = null;
+if ('serviceWorker' in navigator) {
+  navigator.serviceWorker.register('sw.js', { updateViaCache: 'none' }).then((r) => { swReg = r; }).catch(() => {});
+  let reloaded = false;
+  navigator.serviceWorker.addEventListener('controllerchange', () => {
+    if (!reloaded) { reloaded = true; location.reload(); }
+  });
+}
+
+function refresh() {
+  swReg?.update().catch(() => {});
+  loadStatus();
+}
+
+$('refreshBtn').onclick = async () => {
+  $('refreshBtn').classList.add('on');
+  await swReg?.update().catch(() => {});
+  location.reload();
+};
+
 loadStatus();
 setupPush();
 setupWatch();
-document.addEventListener('visibilitychange', () => { if (!document.hidden) loadStatus(); });
+document.addEventListener('visibilitychange', () => { if (!document.hidden) refresh(); });
+window.addEventListener('pageshow', (e) => { if (e.persisted) refresh(); });
+setInterval(() => { if (!document.hidden) loadStatus(); }, 60_000);
