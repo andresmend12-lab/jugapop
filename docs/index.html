@@ -52,10 +52,25 @@
     }
     ol { padding-left: 20px; margin: 8px 0 0; } li { margin: 4px 0; }
     header { display: flex; align-items: center; justify-content: space-between; }
-    #settingsBtn {
+    .icons { display: flex; gap: 2px; }
+    .iconBtn {
       width: auto; padding: 6px 10px; background: transparent; color: var(--muted);
       font-size: 20px; border-radius: 10px;
     }
+    .iconBtn.on { background: var(--card); color: var(--text); }
+    h3 { font-size: 13px; text-transform: uppercase; letter-spacing: .06em; color: var(--muted); margin: 4px 0 -8px; }
+    .warn { color: var(--accent); font-size: 12px; }
+    .rows { display: grid; gap: 6px; margin: 8px 0; }
+    .row { display: flex; align-items: center; gap: 8px; font-size: 13px; min-width: 0; }
+    .row span { flex: 1; min-width: 0; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+    .row button { width: auto; padding: 4px 10px; font-size: 13px; }
+    input {
+      width: 100%; padding: 10px; margin: 4px 0; border-radius: 10px; font: 14px inherit;
+      background: #0f0c22; color: var(--text); border: 1px solid var(--line);
+    }
+    .small { font-size: 12px; }
+    .hist { display: grid; gap: 4px; font-size: 13px; }
+    .hist div { display: flex; gap: 8px; } .hist time { color: var(--muted); flex: none; width: 112px; }
     [hidden] { display: none !important; }
   </style>
 </head>
@@ -63,11 +78,24 @@
 <main>
   <header>
     <h1>🔔 Stock Alerta</h1>
-    <button id="settingsBtn" aria-label="Notificaciones">⚙︎</button>
+    <div class="icons">
+      <button class="iconBtn" id="historyBtn" aria-label="Historial">🕘</button>
+      <button class="iconBtn" id="settingsBtn" aria-label="Ajustes">⚙︎</button>
+    </div>
   </header>
 
   <div id="list"><p class="muted">Cargando…</p></div>
-  <div class="muted" id="lastCheck"></div>
+
+  <h3 id="newsTitle" hidden>🆕 Novedades</h3>
+  <div id="news" class="rows"></div>
+
+  <div class="muted small" id="lastCheck"></div>
+
+  <section class="card" id="historyPanel" hidden>
+    <strong>Historial de stock</strong>
+    <p class="muted small">Cuándo hubo stock y cuánto duró.</p>
+    <div class="hist" id="hist"></div>
+  </section>
 
   <section class="card" id="install" hidden>
     <strong>Instálala en tu iPhone</strong>
@@ -89,6 +117,29 @@
       <textarea id="sub" readonly></textarea>
       <button class="secondary" id="copy">Copiar código</button>
     </div>
+    </div>
+
+    <div class="card" style="margin-top:12px">
+      <strong>Productos vigilados</strong>
+      <div class="rows" id="watchProducts"></div>
+      <input id="newProduct" type="url" placeholder="Pega el enlace de un producto" autocomplete="off">
+      <button class="secondary" id="addProduct">Añadir producto</button>
+
+      <p></p>
+      <strong>Búsquedas de novedades</strong>
+      <p class="muted small">Te aviso cuando aparezca un producto nuevo que encaje.</p>
+      <div class="rows" id="watchSearches"></div>
+      <input id="newSearchStore" type="url" placeholder="Tienda, p. ej. https://jugapop.com" autocomplete="off">
+      <input id="newSearchQuery" type="text" placeholder="Qué buscar, p. ej. 30 aniversario" autocomplete="off">
+      <button class="secondary" id="addSearch">Añadir búsqueda</button>
+      <p class="muted small" id="watchMsg"></p>
+
+      <details>
+        <summary class="muted small">Clave de GitHub (necesaria para añadir y quitar)</summary>
+        <p class="muted small">Crea una en GitHub › Settings › Developer settings › Fine-grained tokens, solo para el repositorio <b>jugapop</b> con permiso <b>Contents: Read and write</b>. Se guarda solo en este iPhone.</p>
+        <input id="token" type="password" placeholder="github_pat_…" autocomplete="off">
+        <button class="secondary" id="saveToken">Guardar clave</button>
+      </details>
     </div>
   </section>
 </main>

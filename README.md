@@ -10,11 +10,15 @@ vuelve a haber stock de:
 
 Un iPhone no deja que una web se quede comprobando cosas en segundo plano, así que el trabajo se reparte en dos partes:
 
-1. **GitHub Actions** (`.github/workflows/check-stock.yml`) mira las tiendas **cada minuto** (cada ejecución dura ~55 min comprobando una vez por minuto y la siguiente arranca al terminar):
+1. **GitHub Actions** (`.github/workflows/check-stock.yml`) mira las tiendas **cada minuto**. Cada ronda dura ~55 min y al terminar lanza la siguiente (el horario programado es solo un respaldo, porque GitHub lo retrasa mucho).
    - Jugapop (WooCommerce): usa la API pública de la tienda y, si falla, lee la página.
    - JJ Collection (Shopify): usa `…/products/<producto>.js`.
-   - Guarda el resultado en `docs/status.json`. Cuando un producto pasa de *agotado* a *disponible*, envía una **notificación push** a tu iPhone.
-2. **La app** (`docs/`, publicada con GitHub Pages) muestra el estado y activa las notificaciones.
+   - Guarda el resultado en `docs/status.json` y manda **notificaciones push** cuando:
+     - un producto **vuelve a tener stock** 🎉 o **se agota de nuevo** 😢,
+     - **baja de precio** 💸,
+     - aparece un **producto nuevo** en una búsqueda vigilada (`searches.json`) 🆕,
+     - una comprobación lleva **más de 10 minutos fallando** ⚠️ (y cuando se recupera ✅).
+2. **La app** (`docs/`, publicada con GitHub Pages) muestra el estado, las novedades, el historial (🕘) y el número de productos con stock en el icono. En ⚙︎ se activan las notificaciones y se añaden o quitan productos y búsquedas.
 
 ## Puesta en marcha (una sola vez)
 
@@ -50,8 +54,14 @@ Para varios dispositivos, pon una lista: `[{…iPhone…}, {…iPad…}]`.
 ## Opcional: aviso de respaldo con ntfy
 Instala la app gratuita **ntfy** en el iPhone, suscríbete a un tema con un nombre difícil de adivinar (p. ej. `pokemon-ana-8f3k2`) y crea el secreto `NTFY_TOPIC` con ese nombre. Recibirás los avisos por las dos vías.
 
-## Añadir o quitar productos
-Edita `products.json` (una URL por línea). Sirven tiendas WooCommerce (`/product/…`), Shopify (`/products/…`) y, en general, cualquier página con datos de disponibilidad estándar.
+## Añadir o quitar productos y búsquedas
+**Desde la app:** ⚙︎ › *Productos vigilados* / *Búsquedas de novedades*. La primera vez necesita una clave de GitHub (se guarda solo en tu iPhone):
+1. GitHub › tu foto › *Settings* › *Developer settings* › *Personal access tokens* › **Fine-grained tokens** › *Generate new token*.
+2. *Repository access*: **Only select repositories** → `jugapop`.
+3. *Permissions* › *Repository permissions* › **Contents: Read and write**.
+4. Copia la clave y pégala en la app (⚙︎ › *Clave de GitHub*).
+
+**A mano:** edita `products.json` (enlaces de producto) o `searches.json` (`{ "store": "https://tienda.com", "query": "lo que buscar" }`). Sirven tiendas WooCommerce (`/product/…`), Shopify (`/products/…`) y, en general, cualquier página con datos de disponibilidad estándar. Las búsquedas funcionan en WooCommerce y Shopify.
 
 Antes de añadir una tienda nueva puedes probarla en *Actions → Probar una página → Run workflow*. Si responde `HTTP 403` con el título *Just a moment…*, la tienda bloquea las comprobaciones automáticas (le pasa a Carrefour) y no se puede vigilar así.
 

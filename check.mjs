@@ -1,6 +1,9 @@
-// Comprueba el stock de los productos de products.json (tiendas WooCommerce como
-// jugapop.com o Shopify como jjcollection.es) y, cuando uno pasa de "agotado" a
-// "disponible", envía una notificación push al iPhone.
+// Vigila productos (products.json) y búsquedas de novedades (searches.json) en
+// tiendas WooCommerce como jugapop.com o Shopify como jjcollection.es, y avisa
+// con notificaciones push al iPhone de:
+//   - stock nuevo, producto agotado de nuevo y bajadas de precio,
+//   - productos nuevos que aparecen en una búsqueda,
+//   - comprobaciones que fallan durante más de 10 minutos (y cuando se recuperan).
 //
 // Variables de entorno:
 //   VAPID_PUBLIC_KEY         clave pública VAPID (la misma que docs/config.js)
@@ -15,8 +18,14 @@ import { createHash } from 'node:crypto';
 import webpush from 'web-push';
 
 const STATUS_FILE = new URL('./docs/status.json', import.meta.url);
-const PRODUCTS = JSON.parse(await readFile(new URL('./products.json', import.meta.url), 'utf8'));
+const readJson = async (name, fallback) =>
+  JSON.parse(await readFile(new URL(name, import.meta.url), 'utf8').catch(() => JSON.stringify(fallback)));
+const PRODUCTS = await readJson('./products.json', []);
+const SEARCHES = await readJson('./searches.json', []);
 const UA = 'Mozilla/5.0 (iPhone; CPU iPhone OS 18_0 like Mac OS X) AppleWebKit/605.1.15 (KHTML, like Gecko) Version/18.0 Mobile/15E148 Safari/604.1';
+const FAIL_ALERT_MS = 10 * 60_000; // avisar si una comprobación lleva 10 min fallando
+const HISTORY_MAX = 30;
+const RECENT_MAX = 15;
 
 async function get(url, accept) {
   const res = await fetch(url, {
@@ -24,12 +33,13 @@ async function get(url, accept) {
     redirect: 'follow',
     signal: AbortSignal.timeout(30_000),
   });
-  if (!res.ok) throw new Error(`${url} -> HTTP ${res.status}`);
+  if (!res.ok) throw new Error(`HTTP ${res.status}`);
   return res;
 }
 
-const euros = (cents, minor = 2) => `${(Number(cents) / 10 ** minor).toFixed(minor).replace('.', ',')} €`;
+const euros = (value) => (value == null ? null : `${value.toFixed(2).replace('.', ',')} €`);
 const handleOf = (url) => new URL(url).pathname.split('/').filter(Boolean).pop();
+const absolute = (src, origin) => (!src ? null : src.startsWith('//') ? `https:${src}` : new URL(src, origin).href);
 
 // Shopify: /products/<handle>.js devuelve el producto con "available".
 async function fromShopify(url) {
@@ -37,15 +47,22 @@ async function fromShopify(url) {
   if (!pathname.includes('/products/')) throw new Error('No es una URL de Shopify');
   const p = await (await get(`${origin}/products/${handleOf(url)}.js`, 'application/json')).json();
   if (typeof p.available !== 'boolean') throw new Error('Shopify: respuesta inesperada');
-  const img = p.featured_image || p.images?.[0];
   return {
     inStock: p.available || (p.variants || []).some((v) => v.available),
     name: p.title,
-    price: p.price != null ? euros(p.price) : null,
-    image: img ? (img.startsWith('//') ? `https:${img}` : img) : null,
+    priceValue: p.price != null ? p.price / 100 : null,
+    image: absolute(p.featured_image || p.images?.[0], origin),
     source: 'shopify',
   };
 }
+
+const wooItem = (p) => ({
+  url: p.permalink,
+  inStock: Boolean(p.is_in_stock && p.is_purchasable !== false),
+  name: decodeEntities(p.name),
+  priceValue: p.prices?.price ? Number(p.prices.price) / 10 ** (p.prices.currency_minor_unit ?? 2) : null,
+  image: p.images?.[0]?.src || null,
+});
 
 // WooCommerce: API pública Store API.
 async function fromWooStoreApi(url) {
@@ -53,18 +70,13 @@ async function fromWooStoreApi(url) {
   const res = await get(`${origin}/wp-json/wc/store/v1/products?slug=${encodeURIComponent(handleOf(url))}`, 'application/json');
   const [p] = await res.json();
   if (!p) throw new Error('Store API: producto no encontrado');
-  return {
-    inStock: Boolean(p.is_in_stock && p.is_purchasable !== false),
-    name: decodeEntities(p.name),
-    price: p.prices?.price ? euros(p.prices.price, p.prices.currency_minor_unit ?? 2) : null,
-    image: p.images?.[0]?.src || null,
-    source: 'woocommerce',
-  };
+  return { ...wooItem(p), source: 'woocommerce' };
 }
 
 // Respaldo para cualquier tienda: analizar el HTML de la página del producto.
 async function fromHtml(url) {
   const html = await (await get(url, 'text/html')).text();
+  if (/<title>\s*Just a moment/i.test(html)) throw new Error('La tienda bloquea las comprobaciones automáticas');
   let inStock = null;
 
   for (const m of html.matchAll(/<script[^>]*application\/ld\+json[^>]*>([\s\S]*?)<\/script>/gi)) {
@@ -81,13 +93,14 @@ async function fromHtml(url) {
     if (/class="[^"]*\bstock\b[^"]*\bout-of-stock\b/i.test(main) || /(Agotado|Sin existencias|Fuera de stock|Sold out|Producto no disponible)/i.test(main)) inStock = false;
     else if (/class="[^"]*\bstock\b[^"]*\bin-stock\b/i.test(main) || /name="add-to-cart"|single_add_to_cart_button/i.test(main)) inStock = true;
   }
-  if (inStock === null) throw new Error('HTML: no se pudo determinar el stock');
+  if (inStock === null) throw new Error('No se pudo determinar el stock');
 
   const meta = (prop) => html.match(new RegExp(`<meta[^>]+property="${prop}"[^>]+content="([^"]*)"`, 'i'))?.[1];
+  const price = meta('product:price:amount') || html.match(/"price"\s*:\s*"?(\d+(?:[.,]\d+)?)/)?.[1];
   return {
     inStock,
     name: decodeEntities(meta('og:title') || ''),
-    price: null,
+    priceValue: price ? Number(price.replace(',', '.')) : null,
     image: meta('og:image') || null,
     source: 'html',
   };
@@ -107,13 +120,38 @@ function decodeEntities(s = '') {
     .replace(/&([a-z]+);/gi, (m, n) => NAMED[n] ?? m).trim();
 }
 
-async function checkProduct(url) {
+async function tryAll(strategies, arg) {
   const errors = [];
-  const strategies = url.includes('/products/') ? [fromShopify, fromHtml] : [fromWooStoreApi, fromHtml];
   for (const fn of strategies) {
-    try { return await fn(url); } catch (e) { errors.push(e.message); }
+    try { return await fn(arg); } catch (e) { errors.push(e.message); }
   }
-  throw new Error(errors.join(' | '));
+  throw new Error([...new Set(errors)].join(' | '));
+}
+
+const checkProduct = (url) =>
+  tryAll(url.includes('/products/') ? [fromShopify, fromHtml] : [fromWooStoreApi, fromHtml], url);
+
+// Búsquedas de novedades: lista de productos que encajan con una búsqueda en la tienda.
+async function searchWoo({ store, query }) {
+  const { origin } = new URL(store);
+  const res = await get(`${origin}/wp-json/wc/store/v1/products?search=${encodeURIComponent(query)}&per_page=40&orderby=date&order=desc`, 'application/json');
+  const list = await res.json();
+  if (!Array.isArray(list)) throw new Error('WooCommerce: respuesta inesperada');
+  return list.map(wooItem);
+}
+
+async function searchShopify({ store, query }) {
+  const { origin } = new URL(store);
+  const res = await get(`${origin}/search/suggest.json?q=${encodeURIComponent(query)}&resources[type]=product&resources[limit]=10&resources[options][unavailable_products]=last`, 'application/json');
+  const list = (await res.json())?.resources?.results?.products;
+  if (!Array.isArray(list)) throw new Error('Shopify: respuesta inesperada');
+  return list.map((p) => ({
+    url: new URL(p.url.split('?')[0], origin).href,
+    inStock: p.available,
+    name: p.title,
+    priceValue: p.price != null ? Number(p.price) : null,
+    image: absolute(p.image || p.featured_image?.url, origin),
+  }));
 }
 
 // Guarda una copia de la foto dentro de docs/img para que la app la muestre
@@ -142,14 +180,14 @@ function parseSubscriptions() {
   return Array.isArray(parsed) ? parsed : [parsed];
 }
 
-async function notify({ title, body, url }) {
+async function notify({ title, body, url, badge }) {
   const subs = parseSubscriptions();
   const { VAPID_PUBLIC_KEY, VAPID_PRIVATE_KEY, VAPID_SUBJECT } = process.env;
   if (subs.length && VAPID_PUBLIC_KEY && VAPID_PRIVATE_KEY) {
     webpush.setVapidDetails(VAPID_SUBJECT || 'https://github.com/andresmend12-lab/jugapop', VAPID_PUBLIC_KEY, VAPID_PRIVATE_KEY);
     for (const sub of subs) {
       try {
-        await webpush.sendNotification(sub, JSON.stringify({ title, body, url }), { TTL: 3600, urgency: 'high' });
+        await webpush.sendNotification(sub, JSON.stringify({ title, body, url, badge }), { TTL: 3600, urgency: 'high' });
         console.log('Push enviado a', new URL(sub.endpoint).host);
       } catch (e) {
         console.log(`::warning::Push falló (${e.statusCode ?? '?'}): ${e.body || e.message}`);
@@ -176,13 +214,33 @@ if (process.env.TEST_NOTIFICATION === 'true') {
   process.exit(0);
 }
 
-const prevAll = JSON.parse(await readFile(STATUS_FILE, 'utf8').catch(() => '{}'));
-const prevByUrl = Object.fromEntries((prevAll.products || []).map((p) => [p.url, p]));
+const prevAll = await readJson('./docs/status.json', {});
+const prevProducts = Object.fromEntries((prevAll.products || []).map((p) => [p.url, p]));
+const searchKey = (s) => `${new URL(s.store).origin}|${s.query.toLowerCase()}`;
+const prevSearches = Object.fromEntries((prevAll.searches || []).map((s) => [s.key, s]));
 const now = new Date().toISOString();
-const products = [];
+const outbox = [];
+const shortName = (name) => (name && name.length > 60 ? `${name.slice(0, 57)}…` : name);
 
+// Lleva la cuenta de fallos seguidos y avisa si duran más de 10 minutos.
+function trackFailure(prev, label, url, error) {
+  const failingSince = prev.failingSince || now;
+  let failAlerted = prev.failAlerted || false;
+  if (!failAlerted && Date.parse(now) - Date.parse(failingSince) >= FAIL_ALERT_MS) {
+    failAlerted = true;
+    outbox.push({ title: `⚠️ No puedo comprobar ${label}`, body: `Lleva más de 10 minutos fallando: ${error}`, url });
+  }
+  // El texto del error solo se guarda al empezar a fallar, para no guardar cambios cada minuto.
+  return { failingSince, failAlerted, error: prev.error || error };
+}
+
+function trackRecovery(prev, label, url) {
+  if (prev.failAlerted) outbox.push({ title: `✅ Vuelvo a comprobar ${label}`, body: 'Las comprobaciones funcionan otra vez.', url });
+}
+
+const products = [];
 for (const url of PRODUCTS) {
-  const prev = prevByUrl[url] || { url };
+  const prev = prevProducts[url] || { url };
   const store = new URL(url).hostname.replace(/^www\./, '');
   let result;
   try {
@@ -190,33 +248,88 @@ for (const url of PRODUCTS) {
   } catch (e) {
     // Mantenemos el estado anterior: un fallo puntual de la web no debe dar falsos avisos.
     console.log(`::warning::No se pudo comprobar ${url}: ${e.message}`);
-    products.push(prev);
+    products.push({ ...prev, store, ...trackFailure(prev, prev.name ? shortName(prev.name) : store, url, e.message) });
     continue;
   }
+  trackRecovery(prev, prev.name ? shortName(prev.name) : store, url);
   console.log(`${result.inStock ? '✅ EN STOCK' : '❌ Agotado'} (${result.source}) — ${result.name || url}`);
 
-  const next = {
+  const name = result.name || prev.name || null;
+  const priceValue = result.priceValue ?? prev.priceValue ?? null;
+  const changed = prev.inStock !== result.inStock;
+  const history = [...(prev.history || [])];
+  if (changed || !history.length) history.push({ at: changed ? now : prev.lastChange || now, inStock: result.inStock });
+
+  products.push({
     url,
     store,
-    name: result.name || prev.name || null,
+    name,
     image: result.image || prev.image || null,
     imageLocal: await saveImage(result.image || prev.image, prev.imageLocal),
-    price: result.price || prev.price || null,
+    price: euros(priceValue),
+    priceValue,
     inStock: result.inStock,
-    lastChange: prev.inStock !== result.inStock ? now : prev.lastChange || now,
-  };
-  products.push(next);
+    lastChange: changed ? now : prev.lastChange || now,
+    history: history.slice(-HISTORY_MAX),
+  });
 
+  const label = `${shortName(name) || 'Tu producto'}${priceValue != null ? ` — ${euros(priceValue)}` : ''}`;
   if (result.inStock && prev.inStock !== true) {
-    await notify({
-      title: `¡Hay stock en ${store}! 🎉`,
-      body: `${next.name || 'Tu producto'}${next.price ? ` — ${next.price}` : ''}. ¡Corre!`,
+    outbox.push({ title: `¡Hay stock en ${store}! 🎉`, body: `${label}. ¡Corre!`, url });
+  } else if (!result.inStock && prev.inStock === true) {
+    outbox.push({ title: `😢 Se ha agotado en ${store}`, body: `${shortName(name) || 'Tu producto'}. Te aviso si vuelve.`, url });
+  }
+  if (prev.priceValue != null && result.priceValue != null && result.priceValue < prev.priceValue - 0.005) {
+    outbox.push({
+      title: `💸 Ha bajado de precio en ${store}`,
+      body: `${shortName(name) || 'Tu producto'}: ${euros(prev.priceValue)} → ${euros(result.priceValue)}`,
       url,
     });
   }
 }
 
-const nextAll = { products };
+const searches = [];
+for (const s of SEARCHES) {
+  const key = searchKey(s);
+  const prev = prevSearches[key];
+  const store = new URL(s.store).hostname.replace(/^www\./, '');
+  const label = `«${s.query}» en ${store}`;
+  let items;
+  try {
+    items = await tryAll([searchWoo, searchShopify], s);
+  } catch (e) {
+    console.log(`::warning::No se pudo buscar ${label}: ${e.message}`);
+    searches.push({ ...(prev || { key, store: s.store, query: s.query, seen: [], recent: [] }), ...trackFailure(prev || {}, label, s.store, e.message) });
+    continue;
+  }
+  if (prev) trackRecovery(prev, label, s.store);
+
+  const seen = new Set(prev?.seen || []);
+  const fresh = items.filter((i) => i.url && !seen.has(i.url));
+  console.log(`🔎 ${label}: ${items.length} resultados, ${prev ? fresh.length : 0} nuevos`);
+  const recent = [...(prev?.recent || [])];
+  // La primera vez solo memorizamos lo que ya existe, sin avisar.
+  if (prev) {
+    for (const i of fresh) {
+      recent.unshift({
+        url: i.url, name: i.name, image: i.image, imageLocal: await saveImage(i.image, null),
+        price: euros(i.priceValue), inStock: i.inStock, foundAt: now,
+      });
+      outbox.push({
+        title: `🆕 Nuevo en ${store}`,
+        body: `${shortName(i.name)}${i.priceValue != null ? ` — ${euros(i.priceValue)}` : ''}${i.inStock ? ' · ¡con stock!' : ' · aún sin stock'}`,
+        url: i.url,
+      });
+    }
+  }
+  for (const i of items) seen.add(i.url);
+  searches.push({ key, store: s.store, query: s.query, seen: [...seen].slice(-300), recent: recent.slice(0, RECENT_MAX) });
+}
+
+const badge = products.filter((p) => p.inStock).length;
+for (const n of outbox) await notify({ ...n, badge });
+
+const nextAll = { products, searches };
 if (JSON.stringify(nextAll) !== JSON.stringify(prevAll)) {
   await writeFile(STATUS_FILE, JSON.stringify(nextAll, null, 2) + '\n');
   console.log('Estado actualizado.');

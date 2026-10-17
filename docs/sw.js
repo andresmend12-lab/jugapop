@@ -1,4 +1,4 @@
-const CACHE = 'jugapop-v4';
+const CACHE = 'jugapop-v5';
 const SHELL = ['./', 'index.html', 'app.js', 'config.js', 'manifest.webmanifest', 'icons/icon-192.png'];
 
 self.addEventListener('install', (e) => {
@@ -25,12 +25,16 @@ self.addEventListener('fetch', (e) => {
 self.addEventListener('push', (e) => {
   let data = {};
   try { data = e.data.json(); } catch { data = { body: e.data?.text() }; }
-  e.waitUntil(self.registration.showNotification(data.title || 'Stock Alerta', {
+  // Número en el icono de la app = productos con stock ahora mismo.
+  const badge = typeof data.badge === 'number' && self.navigator.setAppBadge
+    ? (data.badge > 0 ? self.navigator.setAppBadge(data.badge) : self.navigator.clearAppBadge()).catch(() => {})
+    : Promise.resolve();
+  e.waitUntil(Promise.all([badge, self.registration.showNotification(data.title || 'Stock Alerta', {
     body: data.body || '¡Novedades en tu producto!',
     icon: 'icons/icon-192.png',
     badge: 'icons/icon-192.png',
     data: { url: data.url },
-  }));
+  })]));
 });
 
 self.addEventListener('notificationclick', (e) => {

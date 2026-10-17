@@ -2,9 +2,9 @@ name: Comprobar stock
 
 on:
   schedule:
-    # GitHub no permite programar más a menudo que cada 5 min, así que cada
-    # ejecución se queda ~55 min comprobando una vez por minuto. Mientras una
-    # está en marcha, la siguiente espera en cola y arranca al terminar.
+    # Cada ronda se queda ~55 min comprobando una vez por minuto y al terminar
+    # lanza la siguiente (paso «Encadenar»). GitHub retrasa mucho los horarios
+    # programados, así que este cron es solo un respaldo por si la cadena se corta.
     - cron: '*/5 * * * *'
   workflow_dispatch:
     inputs:
@@ -15,6 +15,7 @@ on:
 
 permissions:
   contents: write
+  actions: write
 
 concurrency:
   # Las pruebas van aparte para no esperar a que termine la ronda en marcha.
@@ -57,3 +58,10 @@ jobs:
             if [ "$TEST_NOTIFICATION" = "true" ] || [ $SECONDS -ge $end ]; then break; fi
             sleep 60
           done
+      - name: Encadenar la siguiente ronda
+        # Si cancelas una ronda a mano, la cadena se para (el cron la reanudará más tarde).
+        if: ${{ !cancelled() && inputs.test != true }}
+        run: gh workflow run check-stock.yml --ref main
+        env:
+          GH_TOKEN: ${{ github.token }}
+          GH_REPO: ${{ github.repository }}
