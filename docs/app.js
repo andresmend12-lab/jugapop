@@ -1,4 +1,4 @@
-const VERSION = 'v6';
+const VERSION = 'v7';
 const $ = (id) => document.getElementById(id);
 const cfg = window.APP_CONFIG;
 
@@ -106,7 +106,7 @@ async function loadStatus() {
       $('lastCheck').innerHTML = `⚠️ Las comprobaciones están paradas desde ${fmtShort(last.updated_at)}. Reactívalas en GitHub › Actions.`;
     } else if (last) $('lastCheck').textContent = `Última comprobación: ${fmt(last.updated_at)}`;
   } catch { /* opcional */ }
-  $('updated').textContent = `Datos cargados a las ${new Date().toLocaleTimeString('es-ES', { hour: '2-digit', minute: '2-digit' })} · ${VERSION}`;
+  $('updated').textContent = `Datos cargados a las ${new Date().toLocaleTimeString('es-ES', { hour: '2-digit', minute: '2-digit' })}`;
 }
 
 // ---------- Notificaciones ----------
@@ -286,6 +286,7 @@ $('settingsBtn').onclick = () => toggle('push', 'settingsBtn');
 $('historyBtn').onclick = () => toggle('historyPanel', 'historyBtn');
 
 // Mantener la app al día: buscar versión nueva al abrirla y recargar cuando se instale.
+$('version').textContent = VERSION;
 let swReg = null;
 if ('serviceWorker' in navigator) {
   navigator.serviceWorker.register('sw.js', { updateViaCache: 'none' }).then((r) => { swReg = r; }).catch(() => {});
