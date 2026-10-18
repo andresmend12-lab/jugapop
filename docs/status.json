@@ -59,9 +59,20 @@
         "https://www.jjcollection.es/products/pokemon-tcg-elite-trainer-box-30th-celebration-ingles",
         "https://www.jjcollection.es/products/pokemon-tcg-30th-celebration-booster-box-chino",
         "https://www.jjcollection.es/products/pokemon-tcg-30th-celebration-ultra-premium-collection-day-espeon-ex-ingles-espanol",
-        "https://www.jjcollection.es/products/pokemon-tcg-30th-celebration-collection-display-gift-box-espeon-ex-umbreon-ex-chino"
+        "https://www.jjcollection.es/products/pokemon-tcg-30th-celebration-collection-display-gift-box-espeon-ex-umbreon-ex-chino",
+        "https://www.jjcollection.es/products/pokemon-tcg-30th-celebration-poster-collection-espanol"
       ],
-      "recent": []
+      "recent": [
+        {
+          "url": "https://www.jjcollection.es/products/pokemon-tcg-30th-celebration-poster-collection-espanol",
+          "name": "Pokémon TCG — 30th Celebration Poster Collection | (Español)",
+          "image": "https://cdn.shopify.com/s/files/1/0959/4431/1113/files/1-Photoroom_7_532fc081-96af-460c-9926-eb89d10cf34c.png?v=1788446862",
+          "imageLocal": "img/f93580b375a0.png",
+          "price": "34,00 €",
+          "inStock": false,
+          "foundAt": "2026-10-18T14:15:39.217Z"
+        }
+      ]
     }
   ]
 }
