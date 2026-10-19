@@ -60,9 +60,29 @@
         "https://www.jjcollection.es/products/pokemon-tcg-30th-celebration-booster-box-chino",
         "https://www.jjcollection.es/products/pokemon-tcg-30th-celebration-ultra-premium-collection-day-espeon-ex-ingles-espanol",
         "https://www.jjcollection.es/products/pokemon-tcg-30th-celebration-collection-display-gift-box-espeon-ex-umbreon-ex-chino",
-        "https://www.jjcollection.es/products/pokemon-tcg-30th-celebration-poster-collection-espanol"
+        "https://www.jjcollection.es/products/pokemon-tcg-30th-celebration-poster-collection-espanol",
+        "https://www.jjcollection.es/products/pokemon-tcg-booster-bundle-30th-celebration-ingles-espanol",
+        "https://www.jjcollection.es/products/pokemon-tcg-30th-celebration-binder-collection-espanol"
       ],
       "recent": [
+        {
+          "url": "https://www.jjcollection.es/products/pokemon-tcg-30th-celebration-binder-collection-espanol",
+          "name": "Pokémon TCG — 30th Celebration Binder collection | (Español)",
+          "image": "https://cdn.shopify.com/s/files/1/0959/4431/1113/files/1-Photoroom_ce840d41-5414-4491-ae64-98c40b82a59a.png?v=1788424174",
+          "imageLocal": "img/3bba1396c05e.png",
+          "price": "66,00 €",
+          "inStock": false,
+          "foundAt": "2026-10-19T16:42:38.798Z"
+        },
+        {
+          "url": "https://www.jjcollection.es/products/pokemon-tcg-booster-bundle-30th-celebration-ingles-espanol",
+          "name": "Pokémon TCG - Booster Bundle 30th Celebration (Inglés & Español)",
+          "image": "https://cdn.shopify.com/s/files/1/0959/4431/1113/files/bundles-1-Photoroom.png?v=1786037176",
+          "imageLocal": "img/c4a817574da8.png",
+          "price": "46,00 €",
+          "inStock": false,
+          "foundAt": "2026-10-19T16:42:38.798Z"
+        },
         {
           "url": "https://www.jjcollection.es/products/pokemon-tcg-30th-celebration-poster-collection-espanol",
           "name": "Pokémon TCG — 30th Celebration Poster Collection | (Español)",
