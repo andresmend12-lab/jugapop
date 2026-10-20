@@ -62,9 +62,19 @@
         "https://www.jjcollection.es/products/pokemon-tcg-30th-celebration-collection-display-gift-box-espeon-ex-umbreon-ex-chino",
         "https://www.jjcollection.es/products/pokemon-tcg-30th-celebration-poster-collection-espanol",
         "https://www.jjcollection.es/products/pokemon-tcg-booster-bundle-30th-celebration-ingles-espanol",
-        "https://www.jjcollection.es/products/pokemon-tcg-30th-celebration-binder-collection-espanol"
+        "https://www.jjcollection.es/products/pokemon-tcg-30th-celebration-binder-collection-espanol",
+        "https://www.jjcollection.es/products/pokemon-tcg-30th-celebration-booster-box-japones"
       ],
       "recent": [
+        {
+          "url": "https://www.jjcollection.es/products/pokemon-tcg-30th-celebration-booster-box-japones",
+          "name": "Pokémon TCG - 30th Celebration booster box (Japonés)",
+          "image": "https://cdn.shopify.com/s/files/1/0959/4431/1113/files/13333333333333333333-Photoroom_271051ae-c05f-4340-9da6-8d93970e0977.png?v=1789566151",
+          "imageLocal": "img/0911123411c5.png",
+          "price": "184,00 €",
+          "inStock": false,
+          "foundAt": "2026-10-20T23:15:53.282Z"
+        },
         {
           "url": "https://www.jjcollection.es/products/pokemon-tcg-30th-celebration-binder-collection-espanol",
           "name": "Pokémon TCG — 30th Celebration Binder collection | (Español)",
