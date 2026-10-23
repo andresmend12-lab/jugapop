@@ -63,9 +63,19 @@
         "https://www.jjcollection.es/products/pokemon-tcg-30th-celebration-poster-collection-espanol",
         "https://www.jjcollection.es/products/pokemon-tcg-booster-bundle-30th-celebration-ingles-espanol",
         "https://www.jjcollection.es/products/pokemon-tcg-30th-celebration-binder-collection-espanol",
-        "https://www.jjcollection.es/products/pokemon-tcg-30th-celebration-booster-box-japones"
+        "https://www.jjcollection.es/products/pokemon-tcg-30th-celebration-booster-box-japones",
+        "https://www.jjcollection.es/products/pokemon-tcg-30th-celebration-greninja-ex-box-espanol"
       ],
       "recent": [
+        {
+          "url": "https://www.jjcollection.es/products/pokemon-tcg-30th-celebration-greninja-ex-box-espanol",
+          "name": "Pokémon TCG — 30th Celebration Greninja Ex Box | (Español)",
+          "image": "https://cdn.shopify.com/s/files/1/0959/4431/1113/files/1-Photoroom_4_86d6fa21-25d1-4ceb-ad5a-830d40299e8b.png?v=1788432000",
+          "imageLocal": "img/be24cdf6146e.png",
+          "price": "38,00 €",
+          "inStock": false,
+          "foundAt": "2026-10-23T16:08:35.893Z"
+        },
         {
           "url": "https://www.jjcollection.es/products/pokemon-tcg-30th-celebration-booster-box-japones",
           "name": "Pokémon TCG - 30th Celebration booster box (Japonés)",
