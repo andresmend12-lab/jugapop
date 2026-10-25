@@ -112,10 +112,7 @@
           "inStock": false,
           "foundAt": "2026-10-18T14:15:39.217Z"
         }
-      ],
-      "failingSince": "2026-10-25T12:50:35.246Z",
-      "failAlerted": false,
-      "error": "HTTP 400 | HTTP 503"
+      ]
     }
   ]
 }
