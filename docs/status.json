@@ -32,7 +32,10 @@
           "at": "2026-10-16T15:56:51.918Z",
           "inStock": false
         }
-      ]
+      ],
+      "failingSince": "2026-10-25T12:19:44.620Z",
+      "failAlerted": false,
+      "error": "HTTP 503"
     }
   ],
   "searches": [
