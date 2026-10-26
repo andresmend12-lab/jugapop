@@ -43,7 +43,10 @@
       "seen": [
         "https://jugapop.com/product/pokemon-tcg-30-aniversario-ex-tin-surtida-con-4-sobres-y-carta-promocional-6-anos/"
       ],
-      "recent": []
+      "recent": [],
+      "failingSince": "2026-10-26T00:37:18.575Z",
+      "failAlerted": false,
+      "error": "The operation was aborted due to timeout"
     },
     {
       "key": "https://www.jjcollection.es|30th",
