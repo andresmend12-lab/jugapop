@@ -25,8 +25,8 @@
       "imageLocal": "img/cd0836b43b2f.png",
       "price": "74,00 €",
       "priceValue": 74,
-      "inStock": true,
-      "lastChange": "2026-10-26T18:01:14.792Z",
+      "inStock": false,
+      "lastChange": "2026-10-27T21:30:11.784Z",
       "history": [
         {
           "at": "2026-10-16T15:56:51.918Z",
@@ -35,6 +35,10 @@
         {
           "at": "2026-10-26T18:01:14.792Z",
           "inStock": true
+        },
+        {
+          "at": "2026-10-27T21:30:11.784Z",
+          "inStock": false
         }
       ]
     }
