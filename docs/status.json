@@ -217,9 +217,20 @@
         "https://flashstore.es/producto/pokemon-poncho-alolan-vulpix-box/",
         "https://flashstore.es/producto/first-partner-illustration-collection-series-2/",
         "https://flashstore.es/producto/pokemon-ruby-sapphire-ex-2004-ho-oh/",
-        "https://flashstore.es/producto/pokemon-ruby-sapphire-ex-2004-machamp/"
+        "https://flashstore.es/producto/pokemon-ruby-sapphire-ex-2004-machamp/",
+        "https://flashstore.es/producto/aura-seeker-caja-30/"
       ],
-      "recent": []
+      "recent": [
+        {
+          "url": "https://flashstore.es/producto/aura-seeker-caja-30/",
+          "name": "Aura Seeker Caja 30",
+          "image": "https://flashstore.es/wp-content/uploads/2026/10/auraseek.jpg",
+          "imageLocal": "img/592caa52c261.jpg",
+          "price": "124,90 €",
+          "inStock": true,
+          "foundAt": "2026-10-28T17:13:51.988Z"
+        }
+      ]
     }
   ]
 }
