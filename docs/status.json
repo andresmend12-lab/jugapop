@@ -204,11 +204,22 @@
       "key": "https://flashstore.es|col:cajas-de-coleccion",
       "store": "https://flashstore.es",
       "collection": "cajas-de-coleccion",
-      "seen": [],
-      "recent": [],
-      "failingSince": "2026-10-28T09:59:09.112Z",
-      "failAlerted": false,
-      "error": "HTTP 404 | HTTP 403"
+      "initialized": true,
+      "seen": [
+        "https://flashstore.es/producto/celebraciones-30th-first-partner-set/",
+        "https://flashstore.es/producto/celebraciones-30th-figura-charizard/",
+        "https://flashstore.es/producto/celebraciones-30th-premium-set-espeon-umbreon/",
+        "https://flashstore.es/producto/celebraciones-30th-booster-box-chn/",
+        "https://flashstore.es/producto/celebraciones-30th-figura-pikachu/",
+        "https://flashstore.es/producto/urshifu-v-box-rapid-strike-urshifu-v-box/",
+        "https://flashstore.es/producto/electrode-v-box/",
+        "https://flashstore.es/producto/world-champions-deck-2025/",
+        "https://flashstore.es/producto/pokemon-poncho-alolan-vulpix-box/",
+        "https://flashstore.es/producto/first-partner-illustration-collection-series-2/",
+        "https://flashstore.es/producto/pokemon-ruby-sapphire-ex-2004-ho-oh/",
+        "https://flashstore.es/producto/pokemon-ruby-sapphire-ex-2004-machamp/"
+      ],
+      "recent": []
     }
   ]
 }
