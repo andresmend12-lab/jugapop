@@ -266,7 +266,7 @@ function setupWatch() {
     // WooCommerce (…/categoria/pokemon/cajas/) vigila la colección entera.
     const collection = storeUrl && new URL(storeUrl).pathname.match(/\/(?:collections|categoria|product-category)\/(?:[^?#]*\/)?([^/?#]+)\/?$/)?.[1];
     if (!storeUrl || (!query && !collection)) { msg('Indica la tienda (https://…) y qué buscar, o pega el enlace de una colección.'); return; }
-    const entry = collection ? { store: new URL(storeUrl).origin, collection } : { store: new URL(storeUrl).origin, query };
+    const entry = collection ? { store: new URL(storeUrl).origin, collection, page: storeUrl } : { store: new URL(storeUrl).origin, query };
     if (await editList('searches.json', (l) => (l.some((s) => JSON.stringify(s) === JSON.stringify(entry)) ? l : [...l, entry]),
       `Añade ${collection ? `la colección ${collection}` : `búsqueda «${query}»`} desde la app`)) {
       $('newSearchQuery').value = '';

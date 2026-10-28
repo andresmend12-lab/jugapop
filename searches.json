@@ -13,6 +13,7 @@
   },
   {
     "store": "https://flashstore.es",
-    "collection": "cajas-de-coleccion"
+    "collection": "cajas-de-coleccion",
+    "page": "https://flashstore.es/categoria/pokemon/cajas-de-coleccion/"
   }
 ]

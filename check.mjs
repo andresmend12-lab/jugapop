@@ -197,6 +197,34 @@ async function searchWooCategory({ store, collection }) {
   return all;
 }
 
+// Respaldo para categorías de WooCommerce cuya API está bloqueada: lee la página de la
+// categoría ordenada por fecha (lo más nuevo sale primero, basta con la primera página).
+async function searchHtmlCategory({ page }) {
+  if (!page) throw new Error('Falta la URL de la categoría');
+  const url = new URL(page);
+  url.searchParams.set('orderby', 'date');
+  const html = await (await get(url.href, 'text/html')).text();
+  if (/<title>\s*Just a moment/i.test(html)) throw new Error('La tienda bloquea las comprobaciones automáticas');
+  const starts = [...html.matchAll(/<(?:li|div)\s[^>]*class="([^"]*\btype-product\b[^"]*)"[^>]*>/g)];
+  if (!starts.length) throw new Error('No se encontraron productos en la página');
+  return starts.map((m, i) => {
+    const block = html.slice(m.index, starts[i + 1]?.index ?? m.index + 20_000);
+    const cls = m[1];
+    const href = block.match(/<a\s[^>]*href="(https?:\/\/[^"]+)"/)?.[1];
+    const name = block.match(/aria-label="([^"]+)"/)?.[1]
+      || block.match(/class="[^"]*(?:wd-entities-title|woocommerce-loop-product__title)[^"]*"[^>]*>(?:<a[^>]*>)?([^<]+)/)?.[1];
+    const image = block.match(/data-lazy-src="([^"]+)"/)?.[1] || block.match(/<img[^>]+src="(https?:[^"]+)"/)?.[1];
+    const price = block.match(/woocommerce-Price-amount[^>]*>(?:<bdi>)?\s*(?:<span[^>]*>[^<]*<\/span>)?\s*([\d.]+(?:,\d+)?)/)?.[1];
+    return {
+      url: href,
+      inStock: !/\boutofstock\b/.test(cls),
+      name: decodeEntities(name || ''),
+      priceValue: price ? Number(price.replace(/\./g, '').replace(',', '.')) : null,
+      image: image || null,
+    };
+  }).filter((i) => i.url);
+}
+
 // Guarda una copia de la foto dentro de docs/img para que la app la muestre
 // aunque la tienda bloquee las imágenes enlazadas desde otras webs.
 async function saveImage(src, prevLocal) {
@@ -259,6 +287,11 @@ if (process.env.TEST_NOTIFICATION === 'true') {
 
 const prevAll = await readJson('./docs/status.json', {});
 const prevProducts = Object.fromEntries((prevAll.products || []).map((p) => [p.url, p]));
+const searchStrategies = (s) => {
+  if (!s.collection) return [searchWoo, searchShopify];
+  if (s.page && !s.page.includes('/collections/')) return [searchHtmlCategory, searchWooCategory];
+  return [searchCollection, searchWooCategory, searchHtmlCategory];
+};
 const searchKey = (s) => `${new URL(s.store).origin}|${s.collection ? `col:${s.collection}` : s.query.toLowerCase()}`;
 const searchLabel = (s, store) => (s.collection ? `la colección «${s.collection}» de ${store}` : `«${s.query}» en ${store}`);
 const prevSearches = Object.fromEntries((prevAll.searches || []).map((s) => [s.key, s]));
@@ -340,7 +373,7 @@ for (const s of SEARCHES) {
   const label = searchLabel(s, store);
   let items;
   try {
-    items = await tryAll(s.collection ? [searchCollection, searchWooCategory] : [searchWoo, searchShopify], s);
+    items = await tryAll(searchStrategies(s), s);
   } catch (e) {
     console.log(`::warning::No se pudo buscar ${label}: ${e.message}`);
     searches.push({ ...(prev || { key, store: s.store, query: s.query, collection: s.collection, seen: [], recent: [] }), ...trackFailure(prev || {}, label, s.store, e.message) });
@@ -349,11 +382,13 @@ for (const s of SEARCHES) {
   if (prev) trackRecovery(prev, label, s.store);
 
   const seen = new Set(prev?.seen || []);
+  // Solo avisamos si ya habíamos leído la lista antes con éxito.
+  const known = Boolean(prev?.initialized || prev?.seen?.length);
   const fresh = items.filter((i) => i.url && !seen.has(i.url));
-  console.log(`🔎 ${label}: ${items.length} resultados, ${prev ? fresh.length : 0} nuevos`);
+  console.log(`🔎 ${label}: ${items.length} resultados, ${known ? fresh.length : 0} nuevos`);
   const recent = [...(prev?.recent || [])];
   // La primera vez solo memorizamos lo que ya existe, sin avisar.
-  if (prev) {
+  if (known) {
     for (const i of fresh) {
       recent.unshift({
         url: i.url, name: i.name, image: i.image, imageLocal: await saveImage(i.image, null),
@@ -368,7 +403,7 @@ for (const s of SEARCHES) {
   }
   for (const i of items) seen.add(i.url);
   // Guardamos muchos para no confundir productos antiguos con nuevos en colecciones grandes.
-  searches.push({ key, store: s.store, query: s.query, collection: s.collection, seen: [...seen].slice(-3000), recent: recent.slice(0, RECENT_MAX) });
+  searches.push({ key, store: s.store, query: s.query, collection: s.collection, initialized: true, seen: [...seen].slice(-3000), recent: recent.slice(0, RECENT_MAX) });
 }
 
 const badge = products.filter((p) => p.inStock).length;
