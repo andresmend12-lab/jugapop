@@ -13,3 +13,8 @@ for (const re of [/availability[^,]{0,80}/gi, /(agotado|sin stock|no disponible|
   console.log(re.source, '→', [...new Set(html.match(re) || [])].slice(0, 10));
 }
 console.log('inicio:', html.slice(0, 400).replace(/\s+/g, ' '));
+// Bloques de producto en páginas de categoría (WooCommerce).
+const blocks = [...html.matchAll(/<(?:li|div)[^>]+class="[^"]*\b(?:type-product|wd-product)\b[^"]*"[^>]*>/g)];
+console.log('bloques de producto:', blocks.length);
+for (const b of blocks.slice(0, 2)) console.log('BLOQUE:', html.slice(b.index, b.index + 1500).replace(/\s+/g, ' '));
+console.log('paginación:', [...new Set(html.match(/\/page\/\d+\//g) || [])]);
