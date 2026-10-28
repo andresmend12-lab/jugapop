@@ -197,13 +197,12 @@ async function searchWooCategory({ store, collection }) {
   return all;
 }
 
-// Respaldo para categorías de WooCommerce cuya API está bloqueada: lee la página de la
-// categoría ordenada por fecha (lo más nuevo sale primero, basta con la primera página).
+// Respaldo para categorías de WooCommerce cuya API está bloqueada: lee la primera página
+// de la categoría tal cual (en tiendas como Flashstore lo más nuevo sale primero; con
+// parámetros como ?orderby=… su protección antibots bloquea la petición).
 async function searchHtmlCategory({ page }) {
   if (!page) throw new Error('Falta la URL de la categoría');
-  const url = new URL(page);
-  url.searchParams.set('orderby', 'date');
-  const html = await (await get(url.href, 'text/html')).text();
+  const html = await (await get(page, 'text/html')).text();
   if (/<title>\s*Just a moment/i.test(html)) throw new Error('La tienda bloquea las comprobaciones automáticas');
   const starts = [...html.matchAll(/<(?:li|div)\s[^>]*class="([^"]*\btype-product\b[^"]*)"[^>]*>/g)];
   if (!starts.length) throw new Error('No se encontraron productos en la página');
@@ -307,8 +306,8 @@ function trackFailure(prev, label, url, error) {
     failAlerted = true;
     outbox.push({ title: `⚠️ No puedo comprobar ${label}`, body: `Lleva más de 10 minutos fallando: ${error}`, url });
   }
-  // El texto del error solo se guarda al empezar a fallar, para no guardar cambios cada minuto.
-  return { failingSince, failAlerted, error: prev.error || error };
+  // El texto del error casi nunca cambia, así que guardarlo no genera cambios cada minuto.
+  return { failingSince, failAlerted, error };
 }
 
 function trackRecovery(prev, label, url) {
