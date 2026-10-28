@@ -1,4 +1,4 @@
-const VERSION = 'v8';
+const VERSION = 'v9';
 const $ = (id) => document.getElementById(id);
 const cfg = window.APP_CONFIG;
 
@@ -262,8 +262,9 @@ function setupWatch() {
   $('addSearch').onclick = async () => {
     const storeUrl = validUrl($('newSearchStore').value);
     const query = $('newSearchQuery').value.trim();
-    // Un enlace a una colección de Shopify (…/collections/pokemon) vigila la colección entera.
-    const collection = storeUrl && new URL(storeUrl).pathname.match(/\/collections\/([^/?#]+)/)?.[1];
+    // Un enlace a una colección de Shopify (…/collections/pokemon) o a una categoría de
+    // WooCommerce (…/categoria/pokemon/cajas/) vigila la colección entera.
+    const collection = storeUrl && new URL(storeUrl).pathname.match(/\/(?:collections|categoria|product-category)\/(?:[^?#]*\/)?([^/?#]+)\/?$/)?.[1];
     if (!storeUrl || (!query && !collection)) { msg('Indica la tienda (https://…) y qué buscar, o pega el enlace de una colección.'); return; }
     const entry = collection ? { store: new URL(storeUrl).origin, collection } : { store: new URL(storeUrl).origin, query };
     if (await editList('searches.json', (l) => (l.some((s) => JSON.stringify(s) === JSON.stringify(entry)) ? l : [...l, entry]),

@@ -61,7 +61,7 @@ Instala la app gratuita **ntfy** en el iPhone, suscríbete a un tema con un nomb
 3. *Permissions* › *Repository permissions* › **Contents: Read and write**.
 4. Copia la clave y pégala en la app (⚙︎ › *Clave de GitHub*).
 
-**A mano:** edita `products.json` (enlaces de producto) o `searches.json` (`{ "store": "https://tienda.com", "query": "lo que buscar" }`, o `{ "store": "https://tienda.com", "collection": "pokemon" }` para vigilar una colección entera de Shopify). Sirven tiendas WooCommerce (`/product/…`), Shopify (`/products/…`) y, en general, cualquier página con datos de disponibilidad estándar. Las búsquedas funcionan en WooCommerce y Shopify.
+**A mano:** edita `products.json` (enlaces de producto) o `searches.json` (`{ "store": "https://tienda.com", "query": "lo que buscar" }`, o `{ "store": "https://tienda.com", "collection": "pokemon" }` para vigilar una colección entera de Shopify o una categoría de WooCommerce). Sirven tiendas WooCommerce (`/product/…`), Shopify (`/products/…`) y, en general, cualquier página con datos de disponibilidad estándar. Las búsquedas funcionan en WooCommerce y Shopify.
 
 Antes de añadir una tienda nueva puedes probarla en *Actions → Probar una página → Run workflow*. Si responde `HTTP 403` con el título *Just a moment…*, la tienda bloquea las comprobaciones automáticas (le pasa a Carrefour) y no se puede vigilar así.
 

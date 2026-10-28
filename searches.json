@@ -10,5 +10,9 @@
   {
     "store": "https://www.darizard9.com",
     "collection": "pokemon"
+  },
+  {
+    "store": "https://flashstore.es",
+    "collection": "cajas-de-coleccion"
   }
 ]

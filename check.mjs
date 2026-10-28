@@ -174,6 +174,29 @@ async function searchCollection({ store, collection }) {
   }));
 }
 
+// WooCommerce: todos los productos de una categoría (…/categoria/<nombre>/ o …/product-category/<nombre>/).
+async function searchWooCategory({ store, collection }) {
+  const { origin } = new URL(store);
+  const api = `${origin}/wp-json/wc/store/v1/products`;
+  const cats = [];
+  for (let page = 1; page <= 10; page++) {
+    const list = await (await get(`${api}/categories?per_page=100&page=${page}`, 'application/json')).json();
+    if (!Array.isArray(list)) throw new Error('WooCommerce: respuesta inesperada');
+    cats.push(...list);
+    if (list.length < 100) break;
+  }
+  const cat = cats.find((c) => c.slug === collection);
+  if (!cat) throw new Error(`WooCommerce: no existe la categoría «${collection}»`);
+  const all = [];
+  for (let page = 1; page <= 10; page++) {
+    const list = await (await get(`${api}?category=${cat.id}&per_page=100&page=${page}&orderby=date&order=desc`, 'application/json')).json();
+    if (!Array.isArray(list)) throw new Error('WooCommerce: respuesta inesperada');
+    all.push(...list.map(wooItem));
+    if (list.length < 100) break;
+  }
+  return all;
+}
+
 // Guarda una copia de la foto dentro de docs/img para que la app la muestre
 // aunque la tienda bloquee las imágenes enlazadas desde otras webs.
 async function saveImage(src, prevLocal) {
@@ -317,7 +340,7 @@ for (const s of SEARCHES) {
   const label = searchLabel(s, store);
   let items;
   try {
-    items = await tryAll(s.collection ? [searchCollection] : [searchWoo, searchShopify], s);
+    items = await tryAll(s.collection ? [searchCollection, searchWooCategory] : [searchWoo, searchShopify], s);
   } catch (e) {
     console.log(`::warning::No se pudo buscar ${label}: ${e.message}`);
     searches.push({ ...(prev || { key, store: s.store, query: s.query, collection: s.collection, seen: [], recent: [] }), ...trackFailure(prev || {}, label, s.store, e.message) });
