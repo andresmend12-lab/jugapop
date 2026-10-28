@@ -40,7 +40,10 @@
           "at": "2026-10-27T21:30:11.784Z",
           "inStock": false
         }
-      ]
+      ],
+      "failingSince": "2026-10-28T02:32:41.695Z",
+      "failAlerted": false,
+      "error": "HTTP 503"
     }
   ],
   "searches": [
@@ -130,7 +133,10 @@
           "inStock": false,
           "foundAt": "2026-10-18T14:15:39.217Z"
         }
-      ]
+      ],
+      "failingSince": "2026-10-28T02:32:41.695Z",
+      "failAlerted": false,
+      "error": "HTTP 400 | HTTP 503"
     }
   ]
 }
