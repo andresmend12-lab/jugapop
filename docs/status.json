@@ -48,6 +48,7 @@
       "key": "https://jugapop.com|30 aniversario",
       "store": "https://jugapop.com",
       "query": "30 aniversario",
+      "initialized": true,
       "seen": [
         "https://jugapop.com/product/pokemon-tcg-30-aniversario-ex-tin-surtida-con-4-sobres-y-carta-promocional-6-anos/"
       ],
@@ -57,6 +58,7 @@
       "key": "https://www.jjcollection.es|30th",
       "store": "https://www.jjcollection.es",
       "query": "30th",
+      "initialized": true,
       "seen": [
         "https://www.jjcollection.es/products/pokemon-tcg-first-partners-illustration-collection-series-2-30th-anniversary-ingles-espanol",
         "https://www.jjcollection.es/products/pokemon-tcg-30th-celebration-deluxe-deck-set-umbreon-chino",
@@ -136,6 +138,7 @@
       "key": "https://www.darizard9.com|col:pokemon",
       "store": "https://www.darizard9.com",
       "collection": "pokemon",
+      "initialized": true,
       "seen": [
         "https://www.darizard9.com/products/30-aniversario-album",
         "https://www.darizard9.com/products/primer-companero-serie-3-espanol",
