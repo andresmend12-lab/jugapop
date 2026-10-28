@@ -196,6 +196,16 @@
         "https://www.darizard9.com/products/mystery-box"
       ],
       "recent": []
+    },
+    {
+      "key": "https://flashstore.es|col:cajas-de-coleccion",
+      "store": "https://flashstore.es",
+      "collection": "cajas-de-coleccion",
+      "seen": [],
+      "recent": [],
+      "failingSince": "2026-10-28T09:59:09.112Z",
+      "failAlerted": false,
+      "error": "HTTP 404 | HTTP 403"
     }
   ]
 }
