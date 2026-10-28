@@ -1,10 +1,11 @@
-const VERSION = 'v7';
+const VERSION = 'v8';
 const $ = (id) => document.getElementById(id);
 const cfg = window.APP_CONFIG;
 
 const fmt = (iso) => new Date(iso).toLocaleString('es-ES', { dateStyle: 'medium', timeStyle: 'short' });
 const fmtShort = (iso) => new Date(iso).toLocaleString('es-ES', { day: 'numeric', month: 'short', hour: '2-digit', minute: '2-digit' });
 const esc = (t) => String(t ?? '').replace(/[&<>"']/g, (c) => `&#${c.charCodeAt(0)};`);
+const searchText = (s) => (s.collection ? `la colección «${esc(s.collection)}» de ${esc(storeOf(s.store))}` : `«${esc(s.query)}» en ${esc(storeOf(s.store))}`);
 const storeOf = (url) => { try { return new URL(url).hostname.replace(/^www\./, ''); } catch { return url; } };
 
 function duration(ms) {
@@ -82,7 +83,7 @@ async function loadStatus() {
     const failingSearch = searches.find((s) => s.failingSince);
     $('newsTitle').hidden = !searches.length;
     $('news').innerHTML = (news.length ? news.map(newsRow).join('')
-      : `<p class="muted small">Sin novedades por ahora. Vigilando ${searches.map((s) => `«${esc(s.query)}» en ${esc(storeOf(s.store))}`).join(', ')}.</p>`)
+      : `<p class="muted small">Sin novedades por ahora. Vigilando ${searches.map(searchText).join(', ')}.</p>`)
       + (failingSearch ? `<div class="warn">⚠️ No se puede buscar en ${esc(storeOf(failingSearch.store))} desde ${fmtShort(failingSearch.failingSince)}</div>` : '');
 
     hookImageFallbacks(document);
@@ -224,7 +225,7 @@ async function renderWatchLists() {
       <span>${esc(storeOf(u))} · ${esc(namesByUrl[u] || decodeURIComponent(new URL(u).pathname.split('/').filter(Boolean).pop() || ''))}</span>
       <button class="secondary" data-del-product="${i}">✕</button></div>`).join('') || '<p class="muted small">Ninguno.</p>';
     $('watchSearches').innerHTML = searches.map((s, i) => `<div class="row">
-      <span>«${esc(s.query)}» en ${esc(storeOf(s.store))}</span>
+      <span>${searchText(s)}</span>
       <button class="secondary" data-del-search="${i}">✕</button></div>`).join('') || '<p class="muted small">Ninguna.</p>';
 
     document.querySelectorAll('[data-del-product]').forEach((b) => {
@@ -233,7 +234,7 @@ async function renderWatchLists() {
     });
     document.querySelectorAll('[data-del-search]').forEach((b) => {
       b.onclick = () => confirm('¿Quitar esta búsqueda?') && editList('searches.json',
-        (l) => l.filter((s) => !(s.store === searches[b.dataset.delSearch].store && s.query === searches[b.dataset.delSearch].query)),
+        (l) => l.filter((s) => JSON.stringify(s) !== JSON.stringify(searches[b.dataset.delSearch])),
         'Quita una búsqueda desde la app');
     });
   } catch (e) {
@@ -261,10 +262,12 @@ function setupWatch() {
   $('addSearch').onclick = async () => {
     const storeUrl = validUrl($('newSearchStore').value);
     const query = $('newSearchQuery').value.trim();
-    if (!storeUrl || !query) { msg('Indica la tienda (https://…) y qué buscar.'); return; }
-    const entry = { store: new URL(storeUrl).origin, query };
-    if (await editList('searches.json', (l) => (l.some((s) => s.store === entry.store && s.query === query) ? l : [...l, entry]),
-      `Añade búsqueda «${query}» desde la app`)) {
+    // Un enlace a una colección de Shopify (…/collections/pokemon) vigila la colección entera.
+    const collection = storeUrl && new URL(storeUrl).pathname.match(/\/collections\/([^/?#]+)/)?.[1];
+    if (!storeUrl || (!query && !collection)) { msg('Indica la tienda (https://…) y qué buscar, o pega el enlace de una colección.'); return; }
+    const entry = collection ? { store: new URL(storeUrl).origin, collection } : { store: new URL(storeUrl).origin, query };
+    if (await editList('searches.json', (l) => (l.some((s) => JSON.stringify(s) === JSON.stringify(entry)) ? l : [...l, entry]),
+      `Añade ${collection ? `la colección ${collection}` : `búsqueda «${query}»`} desde la app`)) {
       $('newSearchQuery').value = '';
     }
   };

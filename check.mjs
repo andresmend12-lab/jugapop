@@ -154,6 +154,26 @@ async function searchShopify({ store, query }) {
   }));
 }
 
+// Shopify: todos los productos de una colección (/collections/<nombre>/products.json).
+async function searchCollection({ store, collection }) {
+  const { origin } = new URL(store);
+  const all = [];
+  for (let page = 1; page <= 8; page++) {
+    const res = await get(`${origin}/collections/${encodeURIComponent(collection)}/products.json?limit=250&page=${page}`, 'application/json');
+    const list = (await res.json())?.products;
+    if (!Array.isArray(list)) throw new Error('Shopify: respuesta inesperada');
+    all.push(...list);
+    if (list.length < 250) break;
+  }
+  return all.map((p) => ({
+    url: `${origin}/products/${p.handle}`,
+    inStock: (p.variants || []).some((v) => v.available),
+    name: p.title,
+    priceValue: p.variants?.[0]?.price != null ? Number(p.variants[0].price) : null,
+    image: absolute(p.images?.[0]?.src, origin),
+  }));
+}
+
 // Guarda una copia de la foto dentro de docs/img para que la app la muestre
 // aunque la tienda bloquee las imágenes enlazadas desde otras webs.
 async function saveImage(src, prevLocal) {
@@ -216,7 +236,8 @@ if (process.env.TEST_NOTIFICATION === 'true') {
 
 const prevAll = await readJson('./docs/status.json', {});
 const prevProducts = Object.fromEntries((prevAll.products || []).map((p) => [p.url, p]));
-const searchKey = (s) => `${new URL(s.store).origin}|${s.query.toLowerCase()}`;
+const searchKey = (s) => `${new URL(s.store).origin}|${s.collection ? `col:${s.collection}` : s.query.toLowerCase()}`;
+const searchLabel = (s, store) => (s.collection ? `la colección «${s.collection}» de ${store}` : `«${s.query}» en ${store}`);
 const prevSearches = Object.fromEntries((prevAll.searches || []).map((s) => [s.key, s]));
 const now = new Date().toISOString();
 const outbox = [];
@@ -293,13 +314,13 @@ for (const s of SEARCHES) {
   const key = searchKey(s);
   const prev = prevSearches[key];
   const store = new URL(s.store).hostname.replace(/^www\./, '');
-  const label = `«${s.query}» en ${store}`;
+  const label = searchLabel(s, store);
   let items;
   try {
-    items = await tryAll([searchWoo, searchShopify], s);
+    items = await tryAll(s.collection ? [searchCollection] : [searchWoo, searchShopify], s);
   } catch (e) {
     console.log(`::warning::No se pudo buscar ${label}: ${e.message}`);
-    searches.push({ ...(prev || { key, store: s.store, query: s.query, seen: [], recent: [] }), ...trackFailure(prev || {}, label, s.store, e.message) });
+    searches.push({ ...(prev || { key, store: s.store, query: s.query, collection: s.collection, seen: [], recent: [] }), ...trackFailure(prev || {}, label, s.store, e.message) });
     continue;
   }
   if (prev) trackRecovery(prev, label, s.store);
@@ -323,7 +344,8 @@ for (const s of SEARCHES) {
     }
   }
   for (const i of items) seen.add(i.url);
-  searches.push({ key, store: s.store, query: s.query, seen: [...seen].slice(-300), recent: recent.slice(0, RECENT_MAX) });
+  // Guardamos muchos para no confundir productos antiguos con nuevos en colecciones grandes.
+  searches.push({ key, store: s.store, query: s.query, collection: s.collection, seen: [...seen].slice(-3000), recent: recent.slice(0, RECENT_MAX) });
 }
 
 const badge = products.filter((p) => p.inStock).length;
