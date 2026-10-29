@@ -198,10 +198,7 @@
         "https://www.darizard9.com/products/articuno-motres-and-zapdos-oversized-card-not-for-play-use",
         "https://www.darizard9.com/products/mystery-box"
       ],
-      "recent": [],
-      "failingSince": "2026-10-29T03:07:18.558Z",
-      "failAlerted": false,
-      "error": "HTTP 503 | HTTP 400 | Falta la URL de la categoría"
+      "recent": []
     },
     {
       "key": "https://flashstore.es|col:cajas-de-coleccion",
