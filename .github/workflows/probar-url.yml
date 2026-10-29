@@ -6,6 +6,9 @@ on:
       url:
         description: 'URL del producto'
         required: true
+      texto:
+        description: 'Texto a buscar en la respuesta (opcional)'
+        required: false
 
 jobs:
   probe:
@@ -16,6 +19,7 @@ jobs:
       - uses: actions/setup-node@v4
         with:
           node-version: 22
-      - run: node probe.mjs "$URL"
+      - run: node probe.mjs "$URL" "$TEXTO"
         env:
           URL: ${{ inputs.url }}
+          TEXTO: ${{ inputs.texto }}
