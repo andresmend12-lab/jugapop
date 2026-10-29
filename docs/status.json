@@ -41,6 +41,23 @@
           "inStock": false
         }
       ]
+    },
+    {
+      "url": "https://www.darizard9.com/products/elite-trainr-box-prismatic-evolution",
+      "store": "darizard9.com",
+      "name": "Tienda oficial de Darizard9",
+      "image": "http://www.darizard9.com/cdn/shop/files/DORADO_1_897bf06a-5e0f-46d7-b400-a7d9fe6bdc5a_1200x1200.png?v=1689863898",
+      "imageLocal": "img/f8cf97940741.png",
+      "price": null,
+      "priceValue": null,
+      "inStock": false,
+      "lastChange": "2026-10-29T08:24:16.186Z",
+      "history": [
+        {
+          "at": "2026-10-29T08:24:16.186Z",
+          "inStock": false
+        }
+      ]
     }
   ],
   "searches": [
