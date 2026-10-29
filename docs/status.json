@@ -15,7 +15,10 @@
           "at": "2026-10-16T15:56:51.918Z",
           "inStock": false
         }
-      ]
+      ],
+      "failingSince": "2026-10-29T19:18:27.978Z",
+      "failAlerted": false,
+      "error": "HTTP 503 | No aparece en ninguna colección vigilada"
     },
     {
       "url": "https://www.jjcollection.es/products/pokemon-tcg-elite-trainer-box-30th-celebration-ingles",
@@ -70,7 +73,10 @@
       "seen": [
         "https://jugapop.com/product/pokemon-tcg-30-aniversario-ex-tin-surtida-con-4-sobres-y-carta-promocional-6-anos/"
       ],
-      "recent": []
+      "recent": [],
+      "failingSince": "2026-10-29T19:18:27.978Z",
+      "failAlerted": false,
+      "error": "HTTP 503"
     },
     {
       "key": "https://www.jjcollection.es|30th",
