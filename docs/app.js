@@ -1,4 +1,4 @@
-const VERSION = 'v9';
+const VERSION = 'v10';
 const $ = (id) => document.getElementById(id);
 const cfg = window.APP_CONFIG;
 
@@ -20,8 +20,8 @@ const thumb = (item) => (item.imageLocal || item.image
   ? `<img src="${esc(item.imageLocal || item.image)}" alt="" data-fallback="${esc(item.image || '')}">` : '');
 
 function productRow(p) {
-  const cls = p.inStock === true ? 'in' : p.inStock === false ? 'out' : '';
-  const label = p.inStock === true ? '¡Hay stock!' : p.inStock === false ? 'Agotado' : 'Aún sin comprobar';
+  const cls = p.unpublished ? '' : p.inStock === true ? 'in' : p.inStock === false ? 'out' : '';
+  const label = p.unpublished ? 'Aún no publicado' : p.inStock === true ? '¡Hay stock!' : p.inStock === false ? 'Agotado' : 'Aún sin comprobar';
   return `<a class="product" href="${esc(p.url)}" target="_blank" rel="noopener">
     ${thumb(p)}
     <div class="info">

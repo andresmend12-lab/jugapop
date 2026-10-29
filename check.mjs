@@ -369,6 +369,8 @@ for (const s of SEARCHES) {
   searches.push({ key, store: s.store, query: s.query, collection: s.collection, initialized: true, seen: [...seen].slice(-3000), recent: recent.slice(0, RECENT_MAX) });
 }
 
+// Datos de los productos que han ido apareciendo en las búsquedas (nombre, foto, precio).
+const recentByUrl = new Map(searches.flatMap((q) => q.recent || []).map((i) => [i.url.replace(/\/$/, ''), i]));
 const products = [];
 for (const url of PRODUCTS) {
   const prev = prevProducts[url] || { url };
@@ -377,6 +379,27 @@ for (const url of PRODUCTS) {
   try {
     result = await checkProduct(url);
   } catch (e) {
+    // Si todas las vías dicen que no existe, el producto aún no está publicado (o lo han
+    // retirado): no es un fallo, lo mostramos como «no publicado» y avisamos cuando aparezca.
+    if (e.message.split(' | ').every((m) => /HTTP 404|no está publicado|No aparece en ninguna colección/.test(m))) {
+      const seenBefore = recentByUrl.get(url.replace(/\/$/, ''));
+      console.log(`⏳ No publicado — ${seenBefore?.name || url}`);
+      trackRecovery(prev, prev.name ? shortName(prev.name) : store, url);
+      products.push({
+        url,
+        store,
+        name: seenBefore?.name || prev.name || null,
+        image: seenBefore?.image || prev.image || null,
+        imageLocal: seenBefore?.image ? await saveImage(seenBefore.image, null) : prev.imageLocal || null,
+        price: seenBefore?.price || prev.price || null,
+        priceValue: prev.priceValue ?? null,
+        inStock: false,
+        unpublished: true,
+        lastChange: prev.lastChange || now,
+        history: prev.history || [],
+      });
+      continue;
+    }
     // Mantenemos el estado anterior: un fallo puntual de la web no debe dar falsos avisos.
     console.log(`::warning::No se pudo comprobar ${url}: ${e.message}`);
     products.push({ ...prev, store, ...trackFailure(prev, prev.name ? shortName(prev.name) : store, url, e.message) });
@@ -384,6 +407,9 @@ for (const url of PRODUCTS) {
   }
   trackRecovery(prev, prev.name ? shortName(prev.name) : store, url);
   console.log(`${result.inStock ? '✅ EN STOCK' : '❌ Agotado'} (${result.source}) — ${result.name || url}`);
+  if (prev.unpublished && !result.inStock) {
+    outbox.push({ title: `📢 Ya está publicado en ${store}`, body: `${shortName(result.name || prev.name) || 'Tu producto'} (aún sin stock). Te aviso cuando lo haya.`, url });
+  }
 
   const name = result.name || prev.name || null;
   const priceValue = result.priceValue ?? prev.priceValue ?? null;
