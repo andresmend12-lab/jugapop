@@ -196,9 +196,20 @@
         "https://www.darizard9.com/products/escarlata-y-purpura-caja-de-36-sobres",
         "https://www.darizard9.com/products/tarjeta-de-regalo",
         "https://www.darizard9.com/products/articuno-motres-and-zapdos-oversized-card-not-for-play-use",
-        "https://www.darizard9.com/products/mystery-box"
+        "https://www.darizard9.com/products/mystery-box",
+        "https://www.darizard9.com/products/elite-trainr-box-prismatic-evolution"
       ],
-      "recent": []
+      "recent": [
+        {
+          "url": "https://www.darizard9.com/products/elite-trainr-box-prismatic-evolution",
+          "name": "Elite Trainer Box Prismatic Evolutions",
+          "image": "https://cdn.shopify.com/s/files/1/0549/2434/5525/files/pku10013_web_box_3d_l__1_-removebg-preview.png?v=1736416954",
+          "imageLocal": "img/aa51d35aa7ad.png",
+          "price": "109,99 €",
+          "inStock": false,
+          "foundAt": "2026-10-29T07:55:56.689Z"
+        }
+      ]
     },
     {
       "key": "https://flashstore.es|col:cajas-de-coleccion",
