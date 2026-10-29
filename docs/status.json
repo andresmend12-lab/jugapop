@@ -45,22 +45,20 @@
     {
       "url": "https://www.darizard9.com/products/elite-trainr-box-prismatic-evolution",
       "store": "darizard9.com",
-      "name": "Tienda oficial de Darizard9",
-      "image": "http://www.darizard9.com/cdn/shop/files/DORADO_1_897bf06a-5e0f-46d7-b400-a7d9fe6bdc5a_1200x1200.png?v=1689863898",
-      "imageLocal": "img/f8cf97940741.png",
-      "price": null,
+      "name": "Elite Trainer Box Prismatic Evolutions",
+      "image": "https://cdn.shopify.com/s/files/1/0549/2434/5525/files/pku10013_web_box_3d_l__1_-removebg-preview.png?v=1736416954",
+      "imageLocal": "img/aa51d35aa7ad.png",
+      "price": "109,99 €",
       "priceValue": null,
       "inStock": false,
+      "unpublished": true,
       "lastChange": "2026-10-29T08:24:16.186Z",
       "history": [
         {
           "at": "2026-10-29T08:24:16.186Z",
           "inStock": false
         }
-      ],
-      "failingSince": "2026-10-29T08:26:28.862Z",
-      "failAlerted": false,
-      "error": "HTTP 404 | No aparece en ninguna colección vigilada | El producto no está publicado (la tienda redirige a otra página)"
+      ]
     }
   ],
   "searches": [
