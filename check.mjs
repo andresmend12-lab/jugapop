@@ -75,7 +75,12 @@ async function fromWooStoreApi(url) {
 
 // Respaldo para cualquier tienda: analizar el HTML de la página del producto.
 async function fromHtml(url) {
-  const html = await (await get(url, 'text/html')).text();
+  const res = await get(url, 'text/html');
+  // Si la tienda nos manda a otra página (p. ej. la portada), el producto no está publicado.
+  if (new URL(res.url).pathname.replace(/\/$/, '') !== new URL(url).pathname.replace(/\/$/, '')) {
+    throw new Error('El producto no está publicado (la tienda redirige a otra página)');
+  }
+  const html = await res.text();
   if (/<title>\s*Just a moment/i.test(html)) throw new Error('La tienda bloquea las comprobaciones automáticas');
   let inStock = null;
 
@@ -128,8 +133,17 @@ async function tryAll(strategies, arg) {
   throw new Error([...new Set(errors)].join(' | '));
 }
 
+// Productos vistos en las búsquedas y colecciones de esta ronda: sirven de respaldo cuando
+// la ficha de un producto aún no está publicada pero ya aparece en el listado.
+const listed = new Map();
+async function fromListing(url) {
+  const item = listed.get(url.replace(/\/$/, ''));
+  if (!item) throw new Error('No aparece en ninguna colección vigilada');
+  return { ...item, source: 'colección' };
+}
+
 const checkProduct = (url) =>
-  tryAll(url.includes('/products/') ? [fromShopify, fromHtml] : [fromWooStoreApi, fromHtml], url);
+  tryAll(url.includes('/products/') ? [fromShopify, fromListing, fromHtml] : [fromWooStoreApi, fromListing, fromHtml], url);
 
 // Búsquedas de novedades: lista de productos que encajan con una búsqueda en la tienda.
 async function searchWoo({ store, query }) {
@@ -314,6 +328,47 @@ function trackRecovery(prev, label, url) {
   if (prev.failAlerted) outbox.push({ title: `✅ Vuelvo a comprobar ${label}`, body: 'Las comprobaciones funcionan otra vez.', url });
 }
 
+const searches = [];
+for (const s of SEARCHES) {
+  const key = searchKey(s);
+  const prev = prevSearches[key];
+  const store = new URL(s.store).hostname.replace(/^www\./, '');
+  const label = searchLabel(s, store);
+  let items;
+  try {
+    items = await tryAll(searchStrategies(s), s);
+  } catch (e) {
+    console.log(`::warning::No se pudo buscar ${label}: ${e.message}`);
+    searches.push({ ...(prev || { key, store: s.store, query: s.query, collection: s.collection, seen: [], recent: [] }), ...trackFailure(prev || {}, label, s.store, e.message) });
+    continue;
+  }
+  if (prev) trackRecovery(prev, label, s.store);
+
+  const seen = new Set(prev?.seen || []);
+  // Solo avisamos si ya habíamos leído la lista antes con éxito.
+  const known = Boolean(prev?.initialized || prev?.seen?.length);
+  const fresh = items.filter((i) => i.url && !seen.has(i.url));
+  console.log(`🔎 ${label}: ${items.length} resultados, ${known ? fresh.length : 0} nuevos`);
+  const recent = [...(prev?.recent || [])];
+  // La primera vez solo memorizamos lo que ya existe, sin avisar.
+  if (known) {
+    for (const i of fresh) {
+      recent.unshift({
+        url: i.url, name: i.name, image: i.image, imageLocal: await saveImage(i.image, null),
+        price: euros(i.priceValue), inStock: i.inStock, foundAt: now,
+      });
+      outbox.push({
+        title: `🆕 Nuevo en ${store}`,
+        body: `${shortName(i.name)}${i.priceValue != null ? ` — ${euros(i.priceValue)}` : ''}${i.inStock ? ' · ¡con stock!' : ' · aún sin stock'}`,
+        url: i.url,
+      });
+    }
+  }
+  for (const i of items) { seen.add(i.url); listed.set(i.url.replace(/\/$/, ''), i); }
+  // Guardamos muchos para no confundir productos antiguos con nuevos en colecciones grandes.
+  searches.push({ key, store: s.store, query: s.query, collection: s.collection, initialized: true, seen: [...seen].slice(-3000), recent: recent.slice(0, RECENT_MAX) });
+}
+
 const products = [];
 for (const url of PRODUCTS) {
   const prev = prevProducts[url] || { url };
@@ -362,47 +417,6 @@ for (const url of PRODUCTS) {
       url,
     });
   }
-}
-
-const searches = [];
-for (const s of SEARCHES) {
-  const key = searchKey(s);
-  const prev = prevSearches[key];
-  const store = new URL(s.store).hostname.replace(/^www\./, '');
-  const label = searchLabel(s, store);
-  let items;
-  try {
-    items = await tryAll(searchStrategies(s), s);
-  } catch (e) {
-    console.log(`::warning::No se pudo buscar ${label}: ${e.message}`);
-    searches.push({ ...(prev || { key, store: s.store, query: s.query, collection: s.collection, seen: [], recent: [] }), ...trackFailure(prev || {}, label, s.store, e.message) });
-    continue;
-  }
-  if (prev) trackRecovery(prev, label, s.store);
-
-  const seen = new Set(prev?.seen || []);
-  // Solo avisamos si ya habíamos leído la lista antes con éxito.
-  const known = Boolean(prev?.initialized || prev?.seen?.length);
-  const fresh = items.filter((i) => i.url && !seen.has(i.url));
-  console.log(`🔎 ${label}: ${items.length} resultados, ${known ? fresh.length : 0} nuevos`);
-  const recent = [...(prev?.recent || [])];
-  // La primera vez solo memorizamos lo que ya existe, sin avisar.
-  if (known) {
-    for (const i of fresh) {
-      recent.unshift({
-        url: i.url, name: i.name, image: i.image, imageLocal: await saveImage(i.image, null),
-        price: euros(i.priceValue), inStock: i.inStock, foundAt: now,
-      });
-      outbox.push({
-        title: `🆕 Nuevo en ${store}`,
-        body: `${shortName(i.name)}${i.priceValue != null ? ` — ${euros(i.priceValue)}` : ''}${i.inStock ? ' · ¡con stock!' : ' · aún sin stock'}`,
-        url: i.url,
-      });
-    }
-  }
-  for (const i of items) seen.add(i.url);
-  // Guardamos muchos para no confundir productos antiguos con nuevos en colecciones grandes.
-  searches.push({ key, store: s.store, query: s.query, collection: s.collection, initialized: true, seen: [...seen].slice(-3000), recent: recent.slice(0, RECENT_MAX) });
 }
 
 const badge = products.filter((p) => p.inStock).length;
