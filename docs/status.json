@@ -23,8 +23,8 @@
       "name": "Pokémon TCG - Elite Trainer Box 30th Celebration (Inglés & Español)",
       "image": "https://cdn.shopify.com/s/files/1/0959/4431/1113/files/ETB-1-Photoroom_2.png?v=1786036373",
       "imageLocal": "img/cd0836b43b2f.png",
-      "price": "104,00 €",
-      "priceValue": 104,
+      "price": "74,00 €",
+      "priceValue": 74,
       "inStock": false,
       "lastChange": "2026-10-27T21:30:11.784Z",
       "history": [
@@ -237,7 +237,10 @@
           "inStock": false,
           "foundAt": "2026-10-29T07:55:56.689Z"
         }
-      ]
+      ],
+      "failingSince": "2026-10-30T23:02:41.002Z",
+      "failAlerted": false,
+      "error": "HTTP 503 | HTTP 400 | Falta la URL de la categoría"
     },
     {
       "key": "https://flashstore.es|col:cajas-de-coleccion",
@@ -269,10 +272,7 @@
           "inStock": true,
           "foundAt": "2026-10-28T17:13:51.988Z"
         }
-      ],
-      "failingSince": "2026-10-30T22:07:11.075Z",
-      "failAlerted": true,
-      "error": "HTTP 403"
+      ]
     }
   ]
 }
