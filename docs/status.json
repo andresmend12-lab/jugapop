@@ -153,10 +153,7 @@
           "inStock": false,
           "foundAt": "2026-10-18T14:15:39.217Z"
         }
-      ],
-      "failingSince": "2026-10-30T15:29:45.584Z",
-      "failAlerted": false,
-      "error": "HTTP 400 | HTTP 503"
+      ]
     },
     {
       "key": "https://www.darizard9.com|col:pokemon",
