@@ -20,11 +20,11 @@
     {
       "url": "https://www.jjcollection.es/products/pokemon-tcg-elite-trainer-box-30th-celebration-ingles",
       "store": "jjcollection.es",
-      "name": "Pokémon TCG - 30th Celebration Elite Trainer Box | Nidorina Promo",
-      "image": "http://www.jjcollection.es/cdn/shop/files/ETB-1-Photoroom_2.png?v=1786036373",
-      "imageLocal": "img/351fc24d912e.png",
-      "price": "7400,00 €",
-      "priceValue": 7400,
+      "name": "Pokémon TCG - Elite Trainer Box 30th Celebration (Inglés & Español)",
+      "image": "https://cdn.shopify.com/s/files/1/0959/4431/1113/files/ETB-1-Photoroom_2.png?v=1786036373",
+      "imageLocal": "img/cd0836b43b2f.png",
+      "price": "74,00 €",
+      "priceValue": 74,
       "inStock": false,
       "lastChange": "2026-10-27T21:30:11.784Z",
       "history": [
@@ -58,7 +58,10 @@
           "at": "2026-10-29T08:24:16.186Z",
           "inStock": false
         }
-      ]
+      ],
+      "failingSince": "2026-10-31T02:34:43.181Z",
+      "failAlerted": false,
+      "error": "HTTP 503 | No aparece en ninguna colección vigilada | HTTP 404"
     }
   ],
   "searches": [
@@ -150,10 +153,7 @@
           "inStock": false,
           "foundAt": "2026-10-18T14:15:39.217Z"
         }
-      ],
-      "failingSince": "2026-10-31T02:33:35.359Z",
-      "failAlerted": false,
-      "error": "HTTP 400 | HTTP 503"
+      ]
     },
     {
       "key": "https://www.darizard9.com|col:pokemon",
