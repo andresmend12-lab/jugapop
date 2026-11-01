@@ -40,10 +40,7 @@
           "at": "2026-10-27T21:30:11.784Z",
           "inStock": false
         }
-      ],
-      "failingSince": "2026-11-01T08:22:25.219Z",
-      "failAlerted": false,
-      "error": "HTTP 503 | No aparece en ninguna colección vigilada"
+      ]
     },
     {
       "url": "https://www.darizard9.com/products/elite-trainr-box-prismatic-evolution",
@@ -64,7 +61,7 @@
       ],
       "failingSince": "2026-11-01T08:22:25.219Z",
       "failAlerted": false,
-      "error": "HTTP 503 | No aparece en ninguna colección vigilada | HTTP 404"
+      "error": "HTTP 503 | No aparece en ninguna colección vigilada"
     }
   ],
   "searches": [
@@ -156,10 +153,7 @@
           "inStock": false,
           "foundAt": "2026-10-18T14:15:39.217Z"
         }
-      ],
-      "failingSince": "2026-11-01T08:22:25.219Z",
-      "failAlerted": false,
-      "error": "HTTP 400 | HTTP 503"
+      ]
     },
     {
       "key": "https://www.darizard9.com|col:pokemon",
@@ -246,10 +240,7 @@
           "inStock": false,
           "foundAt": "2026-10-29T07:55:56.689Z"
         }
-      ],
-      "failingSince": "2026-11-01T08:22:25.219Z",
-      "failAlerted": false,
-      "error": "HTTP 503 | HTTP 400 | Falta la URL de la categoría"
+      ]
     },
     {
       "key": "https://flashstore.es|col:cajas-de-coleccion",
