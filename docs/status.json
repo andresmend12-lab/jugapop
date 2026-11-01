@@ -40,7 +40,10 @@
           "at": "2026-10-27T21:30:11.784Z",
           "inStock": false
         }
-      ]
+      ],
+      "failingSince": "2026-11-01T11:40:04.988Z",
+      "failAlerted": false,
+      "error": "HTTP 503 | No aparece en ninguna colección vigilada"
     },
     {
       "url": "https://www.darizard9.com/products/elite-trainr-box-prismatic-evolution",
@@ -58,7 +61,10 @@
           "at": "2026-10-29T08:24:16.186Z",
           "inStock": false
         }
-      ]
+      ],
+      "failingSince": "2026-11-01T11:40:04.988Z",
+      "failAlerted": false,
+      "error": "HTTP 503 | No aparece en ninguna colección vigilada | HTTP 404"
     }
   ],
   "searches": [
@@ -150,7 +156,10 @@
           "inStock": false,
           "foundAt": "2026-10-18T14:15:39.217Z"
         }
-      ]
+      ],
+      "failingSince": "2026-11-01T11:40:04.988Z",
+      "failAlerted": false,
+      "error": "HTTP 400 | HTTP 503"
     },
     {
       "key": "https://www.darizard9.com|col:pokemon",
