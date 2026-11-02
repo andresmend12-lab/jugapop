@@ -257,9 +257,19 @@
         "https://flashstore.es/producto/first-partner-illustration-collection-series-2/",
         "https://flashstore.es/producto/pokemon-ruby-sapphire-ex-2004-ho-oh/",
         "https://flashstore.es/producto/pokemon-ruby-sapphire-ex-2004-machamp/",
-        "https://flashstore.es/producto/aura-seeker-caja-30/"
+        "https://flashstore.es/producto/aura-seeker-caja-30/",
+        "https://flashstore.es/producto/celebraciones-30th-battle-deck/"
       ],
       "recent": [
+        {
+          "url": "https://flashstore.es/producto/celebraciones-30th-battle-deck/",
+          "name": "Celebraciones 30th Battle Deck",
+          "image": "https://flashstore.es/wp-content/uploads/2026/11/celebdeck.jpg",
+          "imageLocal": "img/ea7bac055028.jpg",
+          "price": "35,90 €",
+          "inStock": true,
+          "foundAt": "2026-11-02T19:00:45.907Z"
+        },
         {
           "url": "https://flashstore.es/producto/aura-seeker-caja-30/",
           "name": "Aura Seeker Caja 30",
