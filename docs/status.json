@@ -58,7 +58,10 @@
           "at": "2026-10-29T08:24:16.186Z",
           "inStock": false
         }
-      ]
+      ],
+      "failingSince": "2026-11-02T16:45:20.508Z",
+      "failAlerted": false,
+      "error": "HTTP 404 | No aparece en ninguna colección vigilada | fetch failed"
     }
   ],
   "searches": [
@@ -150,7 +153,10 @@
           "inStock": false,
           "foundAt": "2026-10-18T14:15:39.217Z"
         }
-      ]
+      ],
+      "failingSince": "2026-11-02T16:45:20.508Z",
+      "failAlerted": false,
+      "error": "HTTP 400 | fetch failed"
     },
     {
       "key": "https://www.darizard9.com|col:pokemon",
