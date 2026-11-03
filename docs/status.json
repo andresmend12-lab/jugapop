@@ -58,7 +58,10 @@
           "at": "2026-10-29T08:24:16.186Z",
           "inStock": false
         }
-      ]
+      ],
+      "failingSince": "2026-11-03T18:25:59.362Z",
+      "failAlerted": false,
+      "error": "HTTP 404 | No aparece en ninguna colección vigilada | The operation was aborted due to timeout"
     }
   ],
   "searches": [
