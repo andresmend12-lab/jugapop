@@ -216,9 +216,19 @@
         "https://www.darizard9.com/products/articuno-motres-and-zapdos-oversized-card-not-for-play-use",
         "https://www.darizard9.com/products/mystery-box",
         "https://www.darizard9.com/products/elite-trainr-box-prismatic-evolution",
-        "https://www.darizard9.com/products/etb-prismatc-evolutions"
+        "https://www.darizard9.com/products/etb-prismatc-evolutions",
+        "https://www.darizard9.com/products/etb"
       ],
       "recent": [
+        {
+          "url": "https://www.darizard9.com/products/etb",
+          "name": "Elite Prismatc Evlution",
+          "image": "https://cdn.shopify.com/s/files/1/0549/2434/5525/files/pku10013_web_box_3d_l__1_-removebg-preview.png?v=1736416954",
+          "imageLocal": "img/aa51d35aa7ad.png",
+          "price": "109,99 €",
+          "inStock": false,
+          "foundAt": "2026-11-03T10:51:14.208Z"
+        },
         {
           "url": "https://www.darizard9.com/products/etb-prismatc-evolutions",
           "name": "ETB Prismatic Evolutions",
