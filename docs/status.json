@@ -281,7 +281,7 @@
         }
       ],
       "failingSince": "2026-11-03T00:25:27.156Z",
-      "failAlerted": false,
+      "failAlerted": true,
       "error": "HTTP 403"
     }
   ]
