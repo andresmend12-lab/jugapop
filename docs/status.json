@@ -268,9 +268,109 @@
         "https://flashstore.es/producto/pokemon-ruby-sapphire-ex-2004-ho-oh/",
         "https://flashstore.es/producto/pokemon-ruby-sapphire-ex-2004-machamp/",
         "https://flashstore.es/producto/aura-seeker-caja-30/",
-        "https://flashstore.es/producto/celebraciones-30th-battle-deck/"
+        "https://flashstore.es/producto/celebraciones-30th-battle-deck/",
+        "https://flashstore.es/producto/pokemon-ruby-sapphire-ex-2004-ralts/",
+        "https://flashstore.es/producto/pokemon-ruby-sapphire-ex-2004-treecko/",
+        "https://flashstore.es/producto/mega-zygarde-ex-premium-collection/",
+        "https://flashstore.es/producto/team-rocket-moltres-ex-ultra-premium-collection/",
+        "https://flashstore.es/producto/first-partner-illustration-collection-series-1/",
+        "https://flashstore.es/producto/mega-start-deck-100-battle-collection/",
+        "https://flashstore.es/producto/heroes-ascendentes-premium-poster-collection-gardevoir/",
+        "https://flashstore.es/producto/heroes-ascendentes-premium-poster-collection-lucario/",
+        "https://flashstore.es/producto/trainer-toolkit-2025/",
+        "https://flashstore.es/producto/zoroark-hisui-vstar-premium-collection/"
       ],
       "recent": [
+        {
+          "url": "https://flashstore.es/producto/zoroark-hisui-vstar-premium-collection/",
+          "name": "Zoroark Hisui VSTAR Premium Collection",
+          "image": "https://flashstore.es/wp-content/uploads/2025/10/hisuian.jpg",
+          "imageLocal": "img/e3f1d8881366.jpg",
+          "price": "59,90 €",
+          "inStock": true,
+          "foundAt": "2026-11-04T22:41:13.937Z"
+        },
+        {
+          "url": "https://flashstore.es/producto/trainer-toolkit-2025/",
+          "name": "Trainer Toolkit 2025",
+          "image": "https://flashstore.es/wp-content/uploads/2025/10/ttkit.jpg",
+          "imageLocal": "img/cbe2dd1e66f7.jpg",
+          "price": "39,90 €",
+          "inStock": true,
+          "foundAt": "2026-11-04T22:41:13.937Z"
+        },
+        {
+          "url": "https://flashstore.es/producto/heroes-ascendentes-premium-poster-collection-lucario/",
+          "name": "Heroes Ascendentes Premium Poster Collection Lucario",
+          "image": "https://flashstore.es/wp-content/uploads/2025/12/poster1.jpg",
+          "imageLocal": "img/3555aac8f476.jpg",
+          "price": "139,90 €",
+          "inStock": true,
+          "foundAt": "2026-11-04T22:41:13.937Z"
+        },
+        {
+          "url": "https://flashstore.es/producto/heroes-ascendentes-premium-poster-collection-gardevoir/",
+          "name": "Heroes Ascendentes Premium Poster Collection Gardevoir",
+          "image": "https://flashstore.es/wp-content/uploads/2025/12/garde.jpg",
+          "imageLocal": "img/2161a9f178a2.jpg",
+          "price": "74,90 €",
+          "inStock": true,
+          "foundAt": "2026-11-04T22:41:13.937Z"
+        },
+        {
+          "url": "https://flashstore.es/producto/mega-start-deck-100-battle-collection/",
+          "name": "Mega Start Deck 100 Battle Collection",
+          "image": "https://flashstore.es/wp-content/uploads/2025/12/start1.jpg",
+          "imageLocal": "img/542100072ca0.jpg",
+          "price": "24,90 €",
+          "inStock": true,
+          "foundAt": "2026-11-04T22:41:13.937Z"
+        },
+        {
+          "url": "https://flashstore.es/producto/first-partner-illustration-collection-series-1/",
+          "name": "First Partner Illustration Collection Series 1",
+          "image": "https://flashstore.es/wp-content/uploads/2026/01/firstpaner.jpg",
+          "imageLocal": "img/008f2136fc6e.jpg",
+          "price": "39,90 €",
+          "inStock": true,
+          "foundAt": "2026-11-04T22:41:13.937Z"
+        },
+        {
+          "url": "https://flashstore.es/producto/team-rocket-moltres-ex-ultra-premium-collection/",
+          "name": "Team Rocket Moltres EX Ultra Premium Collection",
+          "image": "https://flashstore.es/wp-content/uploads/2026/01/moltres.jpg",
+          "imageLocal": "img/1b51ad386877.jpg",
+          "price": "329,90 €",
+          "inStock": true,
+          "foundAt": "2026-11-04T22:41:13.937Z"
+        },
+        {
+          "url": "https://flashstore.es/producto/mega-zygarde-ex-premium-collection/",
+          "name": "Mega Zygarde ex Premium Collection",
+          "image": "https://flashstore.es/wp-content/uploads/2026/03/zygarde.jpg",
+          "imageLocal": "img/b1244fc4fda5.jpg",
+          "price": "37,90 €",
+          "inStock": true,
+          "foundAt": "2026-11-04T22:41:13.937Z"
+        },
+        {
+          "url": "https://flashstore.es/producto/pokemon-ruby-sapphire-ex-2004-treecko/",
+          "name": "Pokemon Ruby Sapphire Ex 2004 Treecko",
+          "image": "https://flashstore.es/wp-content/uploads/2026/04/tr1.jpg",
+          "imageLocal": "img/02a1206a1f04.jpg",
+          "price": "13,90 €",
+          "inStock": true,
+          "foundAt": "2026-11-04T22:41:13.937Z"
+        },
+        {
+          "url": "https://flashstore.es/producto/pokemon-ruby-sapphire-ex-2004-ralts/",
+          "name": "Pokemon Ruby Sapphire Ex 2004 Ralts",
+          "image": "https://flashstore.es/wp-content/uploads/2026/04/r1.jpg",
+          "imageLocal": "img/ce3c1191b555.jpg",
+          "price": "15,90 €",
+          "inStock": true,
+          "foundAt": "2026-11-04T22:41:13.937Z"
+        },
         {
           "url": "https://flashstore.es/producto/celebraciones-30th-battle-deck/",
           "name": "Celebraciones 30th Battle Deck",
