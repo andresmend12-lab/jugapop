@@ -257,7 +257,10 @@
           "inStock": false,
           "foundAt": "2026-10-29T07:55:56.689Z"
         }
-      ]
+      ],
+      "failingSince": "2026-11-07T04:02:41.073Z",
+      "failAlerted": false,
+      "error": "The operation was aborted due to timeout | HTTP 400 | Falta la URL de la categoría"
     },
     {
       "key": "https://flashstore.es|col:cajas-de-coleccion",
