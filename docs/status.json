@@ -58,7 +58,10 @@
           "at": "2026-10-29T08:24:16.186Z",
           "inStock": false
         }
-      ]
+      ],
+      "failingSince": "2026-11-07T21:11:12.816Z",
+      "failAlerted": false,
+      "error": "HTTP 401 | No aparece en ninguna colección vigilada | El producto no está publicado (la tienda redirige a otra página)"
     }
   ],
   "searches": [
@@ -257,7 +260,10 @@
           "inStock": false,
           "foundAt": "2026-10-29T07:55:56.689Z"
         }
-      ]
+      ],
+      "failingSince": "2026-11-07T21:11:12.816Z",
+      "failAlerted": false,
+      "error": "HTTP 401 | HTTP 400 | Falta la URL de la categoría"
     },
     {
       "key": "https://flashstore.es|col:cajas-de-coleccion",
