@@ -288,9 +288,19 @@
         "https://flashstore.es/producto/heroes-ascendentes-premium-poster-collection-gardevoir/",
         "https://flashstore.es/producto/heroes-ascendentes-premium-poster-collection-lucario/",
         "https://flashstore.es/producto/trainer-toolkit-2025/",
-        "https://flashstore.es/producto/zoroark-hisui-vstar-premium-collection/"
+        "https://flashstore.es/producto/zoroark-hisui-vstar-premium-collection/",
+        "https://flashstore.es/producto/celebraciones-30th-binder/"
       ],
       "recent": [
+        {
+          "url": "https://flashstore.es/producto/celebraciones-30th-binder/",
+          "name": "Celebraciones 30th Binder",
+          "image": "https://flashstore.es/wp-content/uploads/2026/10/binder30.jpg",
+          "imageLocal": "img/e19a13566bc4.jpg",
+          "price": "69,90 €",
+          "inStock": true,
+          "foundAt": "2026-11-08T12:42:50.187Z"
+        },
         {
           "url": "https://flashstore.es/producto/zoroark-hisui-vstar-premium-collection/",
           "name": "Zoroark Hisui VSTAR Premium Collection",
