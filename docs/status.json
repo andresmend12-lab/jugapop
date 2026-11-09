@@ -227,9 +227,19 @@
         "https://www.darizard9.com/products/mystery-box",
         "https://www.darizard9.com/products/elite-trainr-box-prismatic-evolution",
         "https://www.darizard9.com/products/etb-prismatc-evolutions",
-        "https://www.darizard9.com/products/etb"
+        "https://www.darizard9.com/products/etb",
+        "https://www.darizard9.com/products/delta-reign-booster-box"
       ],
       "recent": [
+        {
+          "url": "https://www.darizard9.com/products/delta-reign-booster-box",
+          "name": "Delta Reign - Booster Box",
+          "image": "https://cdn.shopify.com/s/files/1/0549/2434/5525/files/P11222-ME06_3D_Booster_Display_36ct_Left_EN-3644x5001-40d6697.webp?v=1794237797",
+          "imageLocal": "img/def1bb7e43df.webp",
+          "price": "199,99 €",
+          "inStock": true,
+          "foundAt": "2026-11-09T15:27:47.159Z"
+        },
         {
           "url": "https://www.darizard9.com/products/etb",
           "name": "Elite Prismatc Evlution",
