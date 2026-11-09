@@ -301,9 +301,19 @@
         "https://flashstore.es/producto/zoroark-hisui-vstar-premium-collection/",
         "https://flashstore.es/producto/celebraciones-30th-binder/",
         "https://flashstore.es/producto/celebraciones-30th-ex-box/",
-        "https://flashstore.es/producto/celebraciones-30th-poster-collection/"
+        "https://flashstore.es/producto/celebraciones-30th-poster-collection/",
+        "https://flashstore.es/producto/celebraciones-30th-futuristic-box/"
       ],
       "recent": [
+        {
+          "url": "https://flashstore.es/producto/celebraciones-30th-futuristic-box/",
+          "name": "Celebraciones 30th Futuristic Box",
+          "image": "https://flashstore.es/wp-content/uploads/2026/11/celebultra1.jpg",
+          "imageLocal": "img/91bc4e201d7f.jpg",
+          "price": "315,90 €",
+          "inStock": true,
+          "foundAt": "2026-11-09T16:10:46.129Z"
+        },
         {
           "url": "https://flashstore.es/producto/celebraciones-30th-poster-collection/",
           "name": "Celebraciones 30th Poster Collection",
@@ -429,15 +439,6 @@
           "price": "35,90 €",
           "inStock": true,
           "foundAt": "2026-11-02T19:00:45.907Z"
-        },
-        {
-          "url": "https://flashstore.es/producto/aura-seeker-caja-30/",
-          "name": "Aura Seeker Caja 30",
-          "image": "https://flashstore.es/wp-content/uploads/2026/10/auraseek.jpg",
-          "imageLocal": "img/592caa52c261.jpg",
-          "price": "124,90 €",
-          "inStock": true,
-          "foundAt": "2026-10-28T17:13:51.988Z"
         }
       ]
     }
