@@ -228,9 +228,39 @@
         "https://www.darizard9.com/products/elite-trainr-box-prismatic-evolution",
         "https://www.darizard9.com/products/etb-prismatc-evolutions",
         "https://www.darizard9.com/products/etb",
-        "https://www.darizard9.com/products/delta-reign-booster-box"
+        "https://www.darizard9.com/products/delta-reign-booster-box",
+        "https://www.darizard9.com/products/ultra-premium-collection-30th-anniversary-night",
+        "https://www.darizard9.com/products/figure-collection-mew-30th-anniversary",
+        "https://www.darizard9.com/products/figure-collection-mewtwo-30th-anniversary"
       ],
       "recent": [
+        {
+          "url": "https://www.darizard9.com/products/figure-collection-mewtwo-30th-anniversary",
+          "name": "Figure Collection Mewtwo 30th Anniversary",
+          "image": "https://cdn.shopify.com/s/files/1/0549/2434/5525/files/Capturadepantalla2026-07-27154403.jxl?v=1794295054",
+          "imageLocal": "img/24f75892abd0.jpg",
+          "price": "89,99 €",
+          "inStock": true,
+          "foundAt": "2026-11-10T16:11:49.352Z"
+        },
+        {
+          "url": "https://www.darizard9.com/products/figure-collection-mew-30th-anniversary",
+          "name": "Figure Collection Mew 30th Anniversary",
+          "image": "https://cdn.shopify.com/s/files/1/0549/2434/5525/files/30-aniversario-figure-collection-1.webp?v=1794294735",
+          "imageLocal": "img/ad0d4b60e2a4.webp",
+          "price": "89,99 €",
+          "inStock": true,
+          "foundAt": "2026-11-10T16:11:49.352Z"
+        },
+        {
+          "url": "https://www.darizard9.com/products/ultra-premium-collection-30th-anniversary-night",
+          "name": "Ultra Premium Collection 30th Anniversary - Night",
+          "image": "https://cdn.shopify.com/s/files/1/0549/2434/5525/files/pokemon-tcg-ultra-premium-collection-night-30th-celebration.webp?v=1794295298",
+          "imageLocal": "img/8ca1863d873c.webp",
+          "price": "399,99 €",
+          "inStock": true,
+          "foundAt": "2026-11-10T16:11:49.352Z"
+        },
         {
           "url": "https://www.darizard9.com/products/delta-reign-booster-box",
           "name": "Delta Reign - Booster Box",
