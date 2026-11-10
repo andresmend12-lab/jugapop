@@ -23,8 +23,8 @@
       "name": "Pokémon TCG - Elite Trainer Box 30th Celebration (Inglés & Español)",
       "image": "https://cdn.shopify.com/s/files/1/0959/4431/1113/files/ETB-1-Photoroom_2.png?v=1786036373",
       "imageLocal": "img/cd0836b43b2f.png",
-      "price": "75,00 €",
-      "priceValue": 75,
+      "price": "106,00 €",
+      "priceValue": 106,
       "inStock": false,
       "lastChange": "2026-10-27T21:30:11.784Z",
       "history": [
@@ -440,7 +440,10 @@
           "inStock": true,
           "foundAt": "2026-11-02T19:00:45.907Z"
         }
-      ]
+      ],
+      "failingSince": "2026-11-10T09:34:41.289Z",
+      "failAlerted": false,
+      "error": "HTTP 403"
     }
   ]
 }
