@@ -58,7 +58,10 @@
           "at": "2026-10-29T08:24:16.186Z",
           "inStock": false
         }
-      ]
+      ],
+      "failingSince": "2026-11-10T15:35:44.590Z",
+      "failAlerted": false,
+      "error": "HTTP 404 | No aparece en ninguna colección vigilada | fetch failed"
     }
   ],
   "searches": [
