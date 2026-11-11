@@ -333,9 +333,19 @@
         "https://flashstore.es/producto/celebraciones-30th-ex-box/",
         "https://flashstore.es/producto/celebraciones-30th-poster-collection/",
         "https://flashstore.es/producto/celebraciones-30th-futuristic-box/",
-        "https://flashstore.es/producto/celebraciones-30th-premium-figure-collection/"
+        "https://flashstore.es/producto/celebraciones-30th-premium-figure-collection/",
+        "https://flashstore.es/producto/aura-seeker-caja-30-sin-plastico/"
       ],
       "recent": [
+        {
+          "url": "https://flashstore.es/producto/aura-seeker-caja-30-sin-plastico/",
+          "name": "Aura Seeker Caja 30 *Sin Plastico*",
+          "image": "https://flashstore.es/wp-content/uploads/2026/10/auraseek.jpg",
+          "imageLocal": "img/592caa52c261.jpg",
+          "price": "78,90 €",
+          "inStock": true,
+          "foundAt": "2026-11-11T11:34:57.424Z"
+        },
         {
           "url": "https://flashstore.es/producto/celebraciones-30th-premium-figure-collection/",
           "name": "Celebraciones 30th Premium Figure Collection",
@@ -459,15 +469,6 @@
           "image": "https://flashstore.es/wp-content/uploads/2026/04/tr1.jpg",
           "imageLocal": "img/02a1206a1f04.jpg",
           "price": "13,90 €",
-          "inStock": true,
-          "foundAt": "2026-11-04T22:41:13.937Z"
-        },
-        {
-          "url": "https://flashstore.es/producto/pokemon-ruby-sapphire-ex-2004-ralts/",
-          "name": "Pokemon Ruby Sapphire Ex 2004 Ralts",
-          "image": "https://flashstore.es/wp-content/uploads/2026/04/r1.jpg",
-          "imageLocal": "img/ce3c1191b555.jpg",
-          "price": "15,90 €",
           "inStock": true,
           "foundAt": "2026-11-04T22:41:13.937Z"
         }
