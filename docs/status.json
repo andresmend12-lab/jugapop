@@ -332,9 +332,19 @@
         "https://flashstore.es/producto/celebraciones-30th-binder/",
         "https://flashstore.es/producto/celebraciones-30th-ex-box/",
         "https://flashstore.es/producto/celebraciones-30th-poster-collection/",
-        "https://flashstore.es/producto/celebraciones-30th-futuristic-box/"
+        "https://flashstore.es/producto/celebraciones-30th-futuristic-box/",
+        "https://flashstore.es/producto/celebraciones-30th-premium-figure-collection/"
       ],
       "recent": [
+        {
+          "url": "https://flashstore.es/producto/celebraciones-30th-premium-figure-collection/",
+          "name": "Celebraciones 30th Premium Figure Collection",
+          "image": "https://flashstore.es/wp-content/uploads/2026/11/celeb30th.jpg",
+          "imageLocal": "img/b75488c42735.jpg",
+          "price": "79,90 €",
+          "inStock": true,
+          "foundAt": "2026-11-11T11:24:08.522Z"
+        },
         {
           "url": "https://flashstore.es/producto/celebraciones-30th-futuristic-box/",
           "name": "Celebraciones 30th Futuristic Box",
@@ -460,15 +470,6 @@
           "price": "15,90 €",
           "inStock": true,
           "foundAt": "2026-11-04T22:41:13.937Z"
-        },
-        {
-          "url": "https://flashstore.es/producto/celebraciones-30th-battle-deck/",
-          "name": "Celebraciones 30th Battle Deck",
-          "image": "https://flashstore.es/wp-content/uploads/2026/11/celebdeck.jpg",
-          "imageLocal": "img/ea7bac055028.jpg",
-          "price": "35,90 €",
-          "inStock": true,
-          "foundAt": "2026-11-02T19:00:45.907Z"
         }
       ]
     }
