@@ -5,7 +5,7 @@ const cfg = window.APP_CONFIG;
 const fmt = (iso) => new Date(iso).toLocaleString('es-ES', { dateStyle: 'medium', timeStyle: 'short' });
 const fmtShort = (iso) => new Date(iso).toLocaleString('es-ES', { day: 'numeric', month: 'short', hour: '2-digit', minute: '2-digit' });
 const esc = (t) => String(t ?? '').replace(/[&<>"']/g, (c) => `&#${c.charCodeAt(0)};`);
-const searchText = (s) => (s.collection ? `la colección «${esc(s.collection)}» de ${esc(storeOf(s.store))}` : `«${esc(s.query)}» en ${esc(storeOf(s.store))}`);
+const searchText = (s) => (s.collection === 'all' ? `toda la tienda ${esc(storeOf(s.store))}` : s.collection ? `la colección «${esc(s.collection)}» de ${esc(storeOf(s.store))}` : `«${esc(s.query)}» en ${esc(storeOf(s.store))}`);
 const storeOf = (url) => { try { return new URL(url).hostname.replace(/^www\./, ''); } catch { return url; } };
 
 function duration(ms) {

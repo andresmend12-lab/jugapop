@@ -306,7 +306,8 @@ const searchStrategies = (s) => {
   return [searchCollection, searchWooCategory, searchHtmlCategory];
 };
 const searchKey = (s) => `${new URL(s.store).origin}|${s.collection ? `col:${s.collection}` : s.query.toLowerCase()}`;
-const searchLabel = (s, store) => (s.collection ? `la colección «${s.collection}» de ${store}` : `«${s.query}» en ${store}`);
+const searchLabel = (s, store) => (s.collection === 'all' ? `toda la tienda ${store}`
+  : s.collection ? `la colección «${s.collection}» de ${store}` : `«${s.query}» en ${store}`);
 const prevSearches = Object.fromEntries((prevAll.searches || []).map((s) => [s.key, s]));
 const now = new Date().toISOString();
 const outbox = [];
