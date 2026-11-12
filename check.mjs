@@ -348,8 +348,11 @@ for (const s of SEARCHES) {
   const seen = new Set(prev?.seen || []);
   // Solo avisamos si ya habíamos leído la lista antes con éxito.
   const known = Boolean(prev?.initialized || prev?.seen?.length);
-  const fresh = items.filter((i) => i.url && !seen.has(i.url));
-  console.log(`🔎 ${label}: ${items.length} resultados, ${known ? fresh.length : 0} nuevos`);
+  // Con «match» solo interesan los productos cuyo nombre encaja (p. ej. solo las UPC).
+  const matcher = s.match ? new RegExp(s.match, 'i') : null;
+  const matched = matcher ? items.filter((i) => matcher.test(i.name || '') || matcher.test(i.url || '')) : items;
+  const fresh = matched.filter((i) => i.url && !seen.has(i.url));
+  console.log(`🔎 ${label}: ${items.length} resultados${matcher ? `, ${matched.length} encajan` : ''}, ${known ? fresh.length : 0} nuevos`);
   const recent = [...(prev?.recent || [])];
   // La primera vez solo memorizamos lo que ya existe, sin avisar.
   if (known) {
@@ -366,8 +369,37 @@ for (const s of SEARCHES) {
     }
   }
   for (const i of items) { seen.add(i.url); listed.set(i.url.replace(/\/$/, ''), i); }
+
+  // Con «match», además vigilamos el stock y el precio de cada producto que encaja.
+  let tracked;
+  if (matcher) {
+    const prevTracked = new Map((prev?.tracked || []).map((t) => [t.url, t]));
+    tracked = [];
+    for (const i of matched) {
+      const before = prevTracked.get(i.url);
+      const changed = before && before.inStock !== i.inStock;
+      tracked.push({
+        url: i.url, store, name: i.name, image: i.image, imageLocal: await saveImage(i.image, before?.imageLocal),
+        price: euros(i.priceValue), priceValue: i.priceValue ?? null, inStock: i.inStock,
+        lastChange: changed || !before ? now : before.lastChange,
+      });
+      if (!known || !before) continue; // los nuevos ya avisan con «🆕 Nuevo»
+      const name = shortName(i.name) || 'Tu producto';
+      if (i.inStock && !before.inStock) {
+        outbox.push({ title: `¡Hay stock en ${store}! 🎉`, body: `${name}${i.priceValue != null ? ` — ${euros(i.priceValue)}` : ''}. ¡Corre!`, url: i.url });
+      } else if (!i.inStock && before.inStock) {
+        outbox.push({ title: `😢 Se ha agotado en ${store}`, body: `${name}. Te aviso si vuelve.`, url: i.url });
+      }
+      if (before.priceValue != null && i.priceValue != null && i.priceValue < before.priceValue - 0.005) {
+        outbox.push({ title: `💸 Ha bajado de precio en ${store}`, body: `${name}: ${euros(before.priceValue)} → ${euros(i.priceValue)}`, url: i.url });
+      }
+    }
+  }
   // Guardamos muchos para no confundir productos antiguos con nuevos en colecciones grandes.
-  searches.push({ key, store: s.store, query: s.query, collection: s.collection, initialized: true, seen: [...seen].slice(-3000), recent: recent.slice(0, RECENT_MAX) });
+  searches.push({
+    key, store: s.store, query: s.query, collection: s.collection, match: s.match, initialized: true,
+    seen: [...seen].slice(-3000), recent: recent.slice(0, RECENT_MAX), ...(tracked ? { tracked } : {}),
+  });
 }
 
 // Datos de los productos que han ido apareciendo en las búsquedas (nombre, foto, precio).
@@ -446,7 +478,8 @@ for (const url of PRODUCTS) {
   }
 }
 
-const badge = products.filter((p) => p.inStock).length;
+const badge = products.filter((p) => p.inStock).length
+  + searches.flatMap((q) => q.tracked || []).filter((t) => t.inStock).length;
 for (const n of outbox) await notify({ ...n, badge });
 
 const nextAll = { products, searches };

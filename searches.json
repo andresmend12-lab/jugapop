@@ -1,23 +1,28 @@
 [
   {
     "store": "https://jugapop.com",
-    "query": "30 aniversario"
+    "query": "premium",
+    "match": "ultra[\\s-]*premium|\\bupc\\b"
   },
   {
     "store": "https://www.jjcollection.es",
-    "query": "30th"
+    "collection": "all",
+    "match": "ultra[\\s-]*premium|\\bupc\\b"
   },
   {
     "store": "https://www.darizard9.com",
-    "collection": "pokemon"
+    "collection": "pokemon",
+    "match": "ultra[\\s-]*premium|\\bupc\\b"
   },
   {
     "store": "https://flashstore.es",
     "collection": "cajas-de-coleccion",
-    "page": "https://flashstore.es/categoria/pokemon/cajas-de-coleccion/"
+    "page": "https://flashstore.es/categoria/pokemon/cajas-de-coleccion/",
+    "match": "ultra[\\s-]*premium|\\bupc\\b"
   },
   {
     "store": "https://toprocketshop.com",
-    "collection": "all"
+    "collection": "all",
+    "match": "ultra[\\s-]*premium|\\bupc\\b"
   }
 ]

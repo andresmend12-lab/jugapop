@@ -1,4 +1,4 @@
-const VERSION = 'v10';
+const VERSION = 'v11';
 const $ = (id) => document.getElementById(id);
 const cfg = window.APP_CONFIG;
 
@@ -76,7 +76,11 @@ async function loadStatus() {
   try {
     const { products = [], searches = [] } = await (await fetch(`status.json?t=${Date.now()}`, { cache: 'no-store' })).json();
     namesByUrl = Object.fromEntries(products.map((p) => [p.url, p.name]));
-    $('list').innerHTML = products.length ? products.map(productRow).join('')
+    // Productos vigilados + los que encajan con las búsquedas filtradas (p. ej. las UPC),
+    // con los que tienen stock primero.
+    const tracked = searches.flatMap((s) => s.tracked || []);
+    const all = [...products, ...tracked].sort((a, b) => Number(Boolean(b.inStock)) - Number(Boolean(a.inStock)));
+    $('list').innerHTML = all.length ? all.map(productRow).join('')
       : '<p class="muted">Aún no hay datos: espera a la primera comprobación.</p>';
 
     const news = searches.flatMap((s) => s.recent || []).sort((a, b) => Date.parse(b.foundAt) - Date.parse(a.foundAt)).slice(0, 8);
@@ -90,7 +94,7 @@ async function loadStatus() {
     renderHistory(products);
 
     // Número en el icono de la app = productos con stock.
-    const inStock = products.filter((p) => p.inStock).length;
+    const inStock = all.filter((p) => p.inStock).length;
     if (navigator.setAppBadge) (inStock ? navigator.setAppBadge(inStock) : navigator.clearAppBadge()).catch(() => {});
   } catch {
     $('list').innerHTML = '<p class="muted">No se pudo cargar el estado.</p>';

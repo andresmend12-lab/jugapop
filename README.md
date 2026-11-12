@@ -3,8 +3,7 @@
 App web instalable en el iPhone (PWA) que te avisa con una notificación cuando
 vuelve a haber stock de:
 
-- [Pokémon TCG 30º aniversario – Caja de Entrenador Élite (Jugapop)](https://jugapop.com/product/pokemon-tcg-30o-aniversario-caja-de-entrenador-elite-6-anos/)
-- [Pokémon TCG Elite Trainer Box 30th Celebration, inglés (JJ Collection)](https://www.jjcollection.es/products/pokemon-tcg-elite-trainer-box-30th-celebration-ingles)
+Ahora vigila **solo las Ultra-Premium Collection (UPC)** en Jugapop, JJ Collection, Darizard9, Flashstore y TopRocket Shop: avisa cuando aparece una UPC nueva y cuando una UPC pasa a tener stock, se agota o baja de precio.
 
 ## Cómo funciona
 
@@ -61,7 +60,7 @@ Instala la app gratuita **ntfy** en el iPhone, suscríbete a un tema con un nomb
 3. *Permissions* › *Repository permissions* › **Contents: Read and write**.
 4. Copia la clave y pégala en la app (⚙︎ › *Clave de GitHub*).
 
-**A mano:** edita `products.json` (enlaces de producto) o `searches.json` (`{ "store": "https://tienda.com", "query": "lo que buscar" }`, o `{ "store": "https://tienda.com", "collection": "pokemon" }` para vigilar una colección entera de Shopify o una categoría de WooCommerce). Sirven tiendas WooCommerce (`/product/…`), Shopify (`/products/…`) y, en general, cualquier página con datos de disponibilidad estándar. Las búsquedas funcionan en WooCommerce y Shopify.
+**A mano:** edita `products.json` (enlaces de producto) o `searches.json` (`{ "store": "https://tienda.com", "query": "lo que buscar" }`, o `{ "store": "https://tienda.com", "collection": "pokemon" }` para vigilar una colección entera de Shopify o una categoría de WooCommerce; `"collection": "all"` es toda una tienda Shopify). Con `"match": "…"` (una expresión regular) solo cuentan los productos cuyo nombre encaja, y de esos se vigila también el stock y el precio. Sirven tiendas WooCommerce (`/product/…`), Shopify (`/products/…`) y, en general, cualquier página con datos de disponibilidad estándar. Las búsquedas funcionan en WooCommerce y Shopify.
 
 Antes de añadir una tienda nueva puedes probarla en *Actions → Probar una página → Run workflow*. Si responde `HTTP 403` con el título *Just a moment…*, la tienda bloquea las comprobaciones automáticas (le pasa a Carrefour) y no se puede vigilar así.
 
