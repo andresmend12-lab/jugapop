@@ -1,7 +1,6 @@
 # 🔔 Stock Alerta
 
-App web instalable en el iPhone (PWA) que te avisa con una notificación cuando
-vuelve a haber stock de:
+App web instalable en el iPhone (PWA) que avisa con notificaciones de novedades y stock en tiendas de Pokémon TCG.
 
 Ahora vigila **solo las Ultra-Premium Collection (UPC)** en Jugapop, JJ Collection, Darizard9, Flashstore y TopRocket Shop: avisa cuando aparece una UPC nueva y cuando una UPC pasa a tener stock, se agota o baja de precio.
 
