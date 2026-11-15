@@ -235,8 +235,8 @@
           "name": "Pokémon TCG - 30th Celebration Ultra Premium Collection Day | Espeon ex (Inglés & Español)",
           "image": "https://cdn.shopify.com/s/files/1/0959/4431/1113/files/UPC-1-Photoroom.png?v=1786037560",
           "imageLocal": "img/281f208b9aa1.png",
-          "price": "484,00 €",
-          "priceValue": 484,
+          "price": "691,00 €",
+          "priceValue": 691,
           "inStock": false,
           "lastChange": "2026-11-12T08:19:08.983Z"
         },
@@ -246,8 +246,8 @@
           "name": "Pokémon TCG - Team Rocket's Moltres ex Ultra Premium Collection (ingles)",
           "image": "https://cdn.shopify.com/s/files/1/0959/4431/1113/files/upfc2-Photoroom.png?v=1778510982",
           "imageLocal": "img/1dc01f053eae.png",
-          "price": "372,00 €",
-          "priceValue": 372,
+          "price": "530,00 €",
+          "priceValue": 530,
           "inStock": false,
           "lastChange": "2026-11-12T08:19:08.983Z"
         },
@@ -257,8 +257,8 @@
           "name": "Pokémon TCG - Ultra Premium Collection Mega Charizard X Phantasmal Flames (ESPAÑOL) (Daño superficiales)",
           "image": "https://cdn.shopify.com/s/files/1/0959/4431/1113/files/Pok_mon-Phantasmal_Flames-Ultra-premiun-collecion1-jjcollectionpng-Photoroom.png?v=1762616437",
           "imageLocal": "img/a72c2bd5cbb1.png",
-          "price": "210,00 €",
-          "priceValue": 210,
+          "price": "299,00 €",
+          "priceValue": 299,
           "inStock": false,
           "lastChange": "2026-11-12T08:19:08.983Z"
         },
@@ -268,8 +268,8 @@
           "name": "Pokémon TCG — 30th Celebration Ultra Premium Collection Night | Umbreon ex (Inglés & Español)",
           "image": "https://cdn.shopify.com/s/files/1/0959/4431/1113/files/UPC-UMBREON-1-Photoroom.png?v=1786038031",
           "imageLocal": "img/ede9cf7b6e9f.png",
-          "price": "507,00 €",
-          "priceValue": 507,
+          "price": "723,00 €",
+          "priceValue": 723,
           "inStock": false,
           "lastChange": "2026-11-12T08:19:08.983Z"
         }
@@ -591,7 +591,10 @@
           "foundAt": "2026-11-04T22:41:13.937Z"
         }
       ],
-      "tracked": []
+      "tracked": [],
+      "failingSince": "2026-11-15T01:05:46.624Z",
+      "failAlerted": false,
+      "error": "HTTP 403"
     },
     {
       "key": "https://toprocketshop.com|col:all",
