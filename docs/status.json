@@ -593,7 +593,7 @@
       ],
       "tracked": [],
       "failingSince": "2026-11-15T01:05:46.624Z",
-      "failAlerted": false,
+      "failAlerted": true,
       "error": "HTTP 403"
     },
     {
