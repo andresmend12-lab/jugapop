@@ -9,10 +9,7 @@
       "initialized": true,
       "seen": [],
       "recent": [],
-      "tracked": [],
-      "failingSince": "2026-11-16T22:31:58.967Z",
-      "failAlerted": false,
-      "error": "fetch failed | Unexpected token '<', \"\r\n\r\r\n<!doctype \"... is not valid JSON"
+      "tracked": []
     },
     {
       "key": "https://www.jjcollection.es|col:all",
