@@ -12,7 +12,7 @@
       "tracked": [],
       "failingSince": "2026-11-17T01:46:23.054Z",
       "failAlerted": false,
-      "error": "fetch failed | Unexpected token '<', \"\r\n\r\r\n<!doctype \"... is not valid JSON"
+      "error": "fetch failed"
     },
     {
       "key": "https://www.jjcollection.es|col:all",
