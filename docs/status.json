@@ -360,7 +360,8 @@
         "https://www.darizard9.com/products/mazo-combate-30-aniversario-umbreon",
         "https://www.darizard9.com/products/mazo-combate-30-anivrsario",
         "https://www.darizard9.com/products/blister-3-pack-delta-reign-1",
-        "https://www.darizard9.com/products/elite-trainer-box-dominio-delta"
+        "https://www.darizard9.com/products/elite-trainer-box-dominio-delta",
+        "https://www.darizard9.com/products/elite-trainer-box-juns-de-aventuras"
       ],
       "recent": [
         {
@@ -427,10 +428,7 @@
           "foundAt": "2026-10-29T07:55:56.689Z"
         }
       ],
-      "tracked": [],
-      "failingSince": "2026-11-17T14:13:41.436Z",
-      "failAlerted": false,
-      "error": "HTTP 401 | HTTP 400 | Falta la URL de la categoría"
+      "tracked": []
     },
     {
       "key": "https://flashstore.es|col:cajas-de-coleccion",
