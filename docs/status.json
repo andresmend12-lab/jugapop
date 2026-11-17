@@ -9,7 +9,10 @@
       "initialized": true,
       "seen": [],
       "recent": [],
-      "tracked": []
+      "tracked": [],
+      "failingSince": "2026-11-17T08:06:01.380Z",
+      "failAlerted": false,
+      "error": "fetch failed | Unexpected token '<', \"\r\n\r\r\n<!doctype \"... is not valid JSON"
     },
     {
       "key": "https://www.jjcollection.es|col:all",
@@ -268,8 +271,8 @@
           "name": "Pokémon TCG — 30th Celebration Ultra Premium Collection Night | Umbreon ex (Inglés & Español)",
           "image": "https://cdn.shopify.com/s/files/1/0959/4431/1113/files/UPC-UMBREON-1-Photoroom.png?v=1786038031",
           "imageLocal": "img/ede9cf7b6e9f.png",
-          "price": "506,00 €",
-          "priceValue": 506,
+          "price": "505,00 €",
+          "priceValue": 505,
           "inStock": false,
           "lastChange": "2026-11-12T08:19:08.983Z"
         }
