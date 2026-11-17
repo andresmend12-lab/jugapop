@@ -427,10 +427,7 @@
           "foundAt": "2026-10-29T07:55:56.689Z"
         }
       ],
-      "tracked": [],
-      "failingSince": "2026-11-17T13:54:07.862Z",
-      "failAlerted": false,
-      "error": "HTTP 401 | HTTP 400 | Falta la URL de la categoría"
+      "tracked": []
     },
     {
       "key": "https://flashstore.es|col:cajas-de-coleccion",
