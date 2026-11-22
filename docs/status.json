@@ -480,9 +480,29 @@
         "https://flashstore.es/producto/celebraciones-30th-premium-figure-collection/",
         "https://flashstore.es/producto/aura-seeker-caja-30-sin-plastico/",
         "https://flashstore.es/producto/celebraciones-30th-ditto-premium-collection/",
-        "https://flashstore.es/producto/celebraciones-30th-collector-display-box/"
+        "https://flashstore.es/producto/celebraciones-30th-collector-display-box/",
+        "https://flashstore.es/producto/celebraciones-30th-ultra-premium-collection-espeon/",
+        "https://flashstore.es/producto/celebraciones-30th-ultra-premium-collection-umbreon/"
       ],
       "recent": [
+        {
+          "url": "https://flashstore.es/producto/celebraciones-30th-ultra-premium-collection-umbreon/",
+          "name": "Celebraciones 30th Ultra Premium Collection Umbreon",
+          "image": "https://flashstore.es/wp-content/uploads/2026/11/noche.jpg",
+          "imageLocal": "img/672d579780e3.jpg",
+          "price": "389,90 €",
+          "inStock": true,
+          "foundAt": "2026-11-22T20:11:40.224Z"
+        },
+        {
+          "url": "https://flashstore.es/producto/celebraciones-30th-ultra-premium-collection-espeon/",
+          "name": "Celebraciones 30th Ultra Premium Collection Espeon",
+          "image": "https://flashstore.es/wp-content/uploads/2026/11/dia.jpg",
+          "imageLocal": "img/eb25d58f0c36.jpg",
+          "price": "369,90 €",
+          "inStock": true,
+          "foundAt": "2026-11-22T20:11:40.224Z"
+        },
         {
           "url": "https://flashstore.es/producto/aura-seeker-caja-30-sin-plastico/",
           "name": "Aura Seeker Caja 30 *Sin Plastico*",
@@ -599,27 +619,32 @@
           "price": "329,90 €",
           "inStock": true,
           "foundAt": "2026-11-04T22:41:13.937Z"
-        },
-        {
-          "url": "https://flashstore.es/producto/mega-zygarde-ex-premium-collection/",
-          "name": "Mega Zygarde ex Premium Collection",
-          "image": "https://flashstore.es/wp-content/uploads/2026/03/zygarde.jpg",
-          "imageLocal": "img/b1244fc4fda5.jpg",
-          "price": "37,90 €",
-          "inStock": true,
-          "foundAt": "2026-11-04T22:41:13.937Z"
-        },
-        {
-          "url": "https://flashstore.es/producto/pokemon-ruby-sapphire-ex-2004-treecko/",
-          "name": "Pokemon Ruby Sapphire Ex 2004 Treecko",
-          "image": "https://flashstore.es/wp-content/uploads/2026/04/tr1.jpg",
-          "imageLocal": "img/02a1206a1f04.jpg",
-          "price": "13,90 €",
-          "inStock": true,
-          "foundAt": "2026-11-04T22:41:13.937Z"
         }
       ],
-      "tracked": []
+      "tracked": [
+        {
+          "url": "https://flashstore.es/producto/celebraciones-30th-ultra-premium-collection-espeon/",
+          "store": "flashstore.es",
+          "name": "Celebraciones 30th Ultra Premium Collection Espeon",
+          "image": "https://flashstore.es/wp-content/uploads/2026/11/dia.jpg",
+          "imageLocal": "img/eb25d58f0c36.jpg",
+          "price": "369,90 €",
+          "priceValue": 369.9,
+          "inStock": true,
+          "lastChange": "2026-11-22T20:11:40.224Z"
+        },
+        {
+          "url": "https://flashstore.es/producto/celebraciones-30th-ultra-premium-collection-umbreon/",
+          "store": "flashstore.es",
+          "name": "Celebraciones 30th Ultra Premium Collection Umbreon",
+          "image": "https://flashstore.es/wp-content/uploads/2026/11/noche.jpg",
+          "imageLocal": "img/672d579780e3.jpg",
+          "price": "389,90 €",
+          "priceValue": 389.9,
+          "inStock": true,
+          "lastChange": "2026-11-22T20:11:40.224Z"
+        }
+      ]
     },
     {
       "key": "https://toprocketshop.com|col:all",
