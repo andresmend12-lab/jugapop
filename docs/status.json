@@ -849,7 +849,10 @@
           "inStock": false,
           "lastChange": "2026-11-12T08:19:08.983Z"
         }
-      ]
+      ],
+      "failingSince": "2026-11-24T22:07:06.571Z",
+      "failAlerted": false,
+      "error": "fetch failed | HTTP 400 | Falta la URL de la categoría"
     }
   ]
 }
