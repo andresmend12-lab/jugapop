@@ -630,7 +630,10 @@
           "foundAt": "2026-11-04T22:41:13.937Z"
         }
       ],
-      "tracked": []
+      "tracked": [],
+      "failingSince": "2026-11-24T12:17:01.503Z",
+      "failAlerted": false,
+      "error": "fetch failed | HTTP 403"
     },
     {
       "key": "https://toprocketshop.com|col:all",
