@@ -825,10 +825,32 @@
         "https://toprocketshop.com/products/mega-forces-lata-ingles",
         "https://toprocketshop.com/products/30-aniversario-mini-tin-ingles",
         "https://toprocketshop.com/products/protector-acrilico-magnetico-booster-box-japonesa-30-20-sobres-reserva",
-        "https://toprocketshop.com/products/protector-acrilico-magnetico-special-box-pokemon-center-japon-reserva"
+        "https://toprocketshop.com/products/protector-acrilico-magnetico-special-box-pokemon-center-japon-reserva",
+        "https://toprocketshop.com/products/protector-acrilico-magnetico-upc-reserva"
       ],
-      "recent": [],
+      "recent": [
+        {
+          "url": "https://toprocketshop.com/products/protector-acrilico-magnetico-upc-reserva",
+          "name": "PROTECTOR ACRÍLICO MAGNÉTICO UPC - RESERVA",
+          "image": "https://cdn.shopify.com/s/files/1/0955/6223/6243/files/IMG_6233.jpg?v=1795630404",
+          "imageLocal": null,
+          "price": "32,90 €",
+          "inStock": true,
+          "foundAt": "2026-11-25T18:14:14.657Z"
+        }
+      ],
       "tracked": [
+        {
+          "url": "https://toprocketshop.com/products/protector-acrilico-magnetico-upc-reserva",
+          "store": "toprocketshop.com",
+          "name": "PROTECTOR ACRÍLICO MAGNÉTICO UPC - RESERVA",
+          "image": "https://cdn.shopify.com/s/files/1/0955/6223/6243/files/IMG_6233.jpg?v=1795630404",
+          "imageLocal": null,
+          "price": "32,90 €",
+          "priceValue": 32.9,
+          "inStock": true,
+          "lastChange": "2026-11-25T18:14:14.657Z"
+        },
         {
           "url": "https://toprocketshop.com/products/ultra-premium-collection-terapagos-espanol",
           "store": "toprocketshop.com",
