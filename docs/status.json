@@ -848,8 +848,8 @@
           "imageLocal": "img/f02474226ce5.jpg",
           "price": "32,90 €",
           "priceValue": 32.9,
-          "inStock": false,
-          "lastChange": "2026-11-26T06:50:44.448Z"
+          "inStock": true,
+          "lastChange": "2026-11-26T07:35:57.986Z"
         },
         {
           "url": "https://toprocketshop.com/products/ultra-premium-collection-terapagos-espanol",
