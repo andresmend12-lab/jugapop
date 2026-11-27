@@ -656,19 +656,7 @@
           "foundAt": "2026-11-04T22:41:13.937Z"
         }
       ],
-      "tracked": [
-        {
-          "url": "https://flashstore.es/producto/celebraciones-30th-ultra-premium-collection-umbreon/",
-          "store": "flashstore.es",
-          "name": "Celebraciones 30th Ultra Premium Collection Umbreon",
-          "image": "https://flashstore.es/wp-content/uploads/2026/11/noche.jpg",
-          "imageLocal": "img/672d579780e3.jpg",
-          "price": "389,90 €",
-          "priceValue": 389.9,
-          "inStock": true,
-          "lastChange": "2026-11-27T16:09:59.161Z"
-        }
-      ]
+      "tracked": []
     },
     {
       "key": "https://toprocketshop.com|col:all",
