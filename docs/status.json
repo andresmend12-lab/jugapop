@@ -382,9 +382,35 @@
         "https://www.darizard9.com/products/30th-celebraton-2-pack-blister",
         "https://www.darizard9.com/products/sleeve-dominio-delta",
         "https://www.darizard9.com/products/30th-celebrton-2-pack-blister",
-        "https://www.darizard9.com/products/tin-mega-forces"
+        "https://www.darizard9.com/products/tin-mega-forces",
+        "https://www.darizard9.com/products/ultra-premium-noche-30-anersario",
+        "https://www.darizard9.com/products/ultra-premium-dia-30-anirsario",
+        "https://www.darizard9.com/products/caja-de-entrnador-elte-celebracion-30-anivrario",
+        "https://www.darizard9.com/products/bundle-30-aniversri",
+        "https://www.darizard9.com/products/case-x10-mini-lata-30-aniersario",
+        "https://www.darizard9.com/products/30-aniversaio-mini-lata",
+        "https://www.darizard9.com/products/30-aniversar-coleccion-sticker",
+        "https://www.darizard9.com/products/30-aiversario-coleccion-sticker-lucario-copia"
       ],
       "recent": [
+        {
+          "url": "https://www.darizard9.com/products/ultra-premium-dia-30-anirsario",
+          "name": "Ultra Prémium Día 30 Aniversario",
+          "image": "https://cdn.shopify.com/s/files/1/0549/2434/5525/files/71X4D8bwlvL._AC_UF894_1000_QL80_b34fff9d-4550-413e-aa2b-37c1da87fa05.jpg?v=1795767962",
+          "imageLocal": "img/36f89f873f77.jpg",
+          "price": "249,99 €",
+          "inStock": true,
+          "foundAt": "2026-11-27T11:05:36.002Z"
+        },
+        {
+          "url": "https://www.darizard9.com/products/ultra-premium-noche-30-anersario",
+          "name": "Ultra Prémium Noche 30 Aniversario",
+          "image": "https://cdn.shopify.com/s/files/1/0549/2434/5525/files/71olldTc-bL._AC_UF894_1000_QL80.jpg?v=1795767879",
+          "imageLocal": "img/4a06860e491e.jpg",
+          "price": "269,99 €",
+          "inStock": true,
+          "foundAt": "2026-11-27T11:05:36.002Z"
+        },
         {
           "url": "https://www.darizard9.com/products/figure-collection-mewtwo-30th-anniversary",
           "name": "Figure Collection Mewtwo 30th Anniversary",
@@ -449,7 +475,30 @@
           "foundAt": "2026-10-29T07:55:56.689Z"
         }
       ],
-      "tracked": []
+      "tracked": [
+        {
+          "url": "https://www.darizard9.com/products/ultra-premium-noche-30-anersario",
+          "store": "darizard9.com",
+          "name": "Ultra Prémium Noche 30 Aniversario",
+          "image": "https://cdn.shopify.com/s/files/1/0549/2434/5525/files/71olldTc-bL._AC_UF894_1000_QL80.jpg?v=1795767879",
+          "imageLocal": "img/4a06860e491e.jpg",
+          "price": "269,99 €",
+          "priceValue": 269.99,
+          "inStock": true,
+          "lastChange": "2026-11-27T11:05:36.002Z"
+        },
+        {
+          "url": "https://www.darizard9.com/products/ultra-premium-dia-30-anirsario",
+          "store": "darizard9.com",
+          "name": "Ultra Prémium Día 30 Aniversario",
+          "image": "https://cdn.shopify.com/s/files/1/0549/2434/5525/files/71X4D8bwlvL._AC_UF894_1000_QL80_b34fff9d-4550-413e-aa2b-37c1da87fa05.jpg?v=1795767962",
+          "imageLocal": "img/36f89f873f77.jpg",
+          "price": "249,99 €",
+          "priceValue": 249.99,
+          "inStock": true,
+          "lastChange": "2026-11-27T11:05:36.002Z"
+        }
+      ]
     },
     {
       "key": "https://flashstore.es|col:cajas-de-coleccion",
