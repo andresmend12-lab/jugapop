@@ -475,19 +475,7 @@
           "foundAt": "2026-10-29T07:55:56.689Z"
         }
       ],
-      "tracked": [
-        {
-          "url": "https://www.darizard9.com/products/ultra-premium-dia-30-anirsario",
-          "store": "darizard9.com",
-          "name": "Ultra Prémium Día 30 Aniversario",
-          "image": "https://cdn.shopify.com/s/files/1/0549/2434/5525/files/71X4D8bwlvL._AC_UF894_1000_QL80_b34fff9d-4550-413e-aa2b-37c1da87fa05.jpg?v=1795767962",
-          "imageLocal": "img/36f89f873f77.jpg",
-          "price": "249,99 €",
-          "priceValue": 249.99,
-          "inStock": false,
-          "lastChange": "2026-11-27T11:06:39.864Z"
-        }
-      ]
+      "tracked": []
     },
     {
       "key": "https://flashstore.es|col:cajas-de-coleccion",
